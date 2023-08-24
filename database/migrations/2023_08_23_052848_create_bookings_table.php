@@ -25,7 +25,6 @@ return new class extends Migration {
             $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->timestamps();
         });
     }
 

@@ -17,11 +17,11 @@ return new class extends Migration {
             $table->string('name', 120);
             $table->string('email', 120);
             $table->longText('address');
-            $table->dateTime('check_in_time');
-            $table->dateTime('check_out_time');
+            $table->time('check_in_time');
+            $table->time('check_out_time');
             $table->string('phone');
             $table->string('size_unit', 20);
-            $table->string('occupanct', 20);
+            $table->string('occupancy', 20);
             $table->string('price_unit', 20);
             $table->string('logo_path', 20);
             $table->integer('created_by');
