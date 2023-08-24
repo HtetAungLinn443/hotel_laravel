@@ -15,7 +15,5 @@ use App\Http\Controllers\TestController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('test', [TestController::class, 'index']);
+Route::get('', [TestController::class, 'viewCreate'])->name('createForm');
+Route::post('', [TestController::class, 'ViewStore'])->name('viewCreate');

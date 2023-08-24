@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Amenity extends Model
 {
     use HasFactory;
-    protected $fillable = [''];
+    protected $table = 'amenities';
+    protected $fillable = ['name', 'type', 'created_by', 'updated_by', 'deleted_by'];
 }

@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class BedType extends Model
 {
     use HasFactory;
+    protected $table = 'bed_types';
+    protected $fillable = [
+        'name', 'created_by', 'updated_by', 'deleted_by'
+    ];
 }
