@@ -32,10 +32,12 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            width: 100%;
         }
 
         input[type=submit]:hover {
             background-color: #45a049;
+
         }
 
         .container {
@@ -47,25 +49,32 @@
 </head>
 
 <body>
-
-    <h3>View Create Form</h3>
-
+    @if (isset($view_data))
+      <h3>View Update Form</h3>
+    @else
+      <h3>View Create Form</h3>
+    @endif
     <div class="container">
-        <form action="{{ route('viewCreate') }}" method="POST">
+        @if (isset($view_data))
+            <form action="{{ route('viewUpdate') }}" method="POST">
+        @else
+            <form action="{{ route('viewCreate') }}" method="POST">
+        @endif
             @csrf
             <label for="fname">Hotel View Name</label>
-            <input type="text" id="fname" name="name" placeholder="Hotel View name..">
+            <input type="text" id="fname" name="name" value="{{ old('name',(isset($view_data))? $view_data->name : '') }}" placeholder="Hotel View name.." autofocus>
+            @error('name')
+                <p style="color:red;">{{ $message }}</p>
+            @enderror
+            @if ( isset($view_data))
+                <input type="hidden" name="id" value="{{ $view_data->id }}">
+            @else
 
+            @endif
             <input type="submit" value="Submit">
         </form>
     </div>
-    <div class="dataList">
-        <ul>
-            @foreach ($datas as $data)
-                <li>{{ $data->name }}</li>
-            @endforeach
-        </ul>
-    </div>
+
 </body>
 
 </html>

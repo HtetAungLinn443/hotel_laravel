@@ -17,3 +17,7 @@ use App\Http\Controllers\TestController;
 
 Route::get('', [TestController::class, 'viewCreate'])->name('createForm');
 Route::post('', [TestController::class, 'ViewStore'])->name('viewCreate');
+Route::get('views', [TestController::class, 'viewIndex'])->name('viewIndex');
+Route::get('view/edit/{id}', [TestController::class, 'viewEdit'])->name('viewEdit');
+Route::post('view/update', [TestController::class, 'viewUpdate'])->name('viewUpdate');
+Route::get('view/delete/{id}', [TestController::class, 'viewDelete'])->name('viewDelete');
