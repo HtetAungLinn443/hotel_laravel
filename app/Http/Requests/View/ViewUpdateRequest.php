@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\View;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ViewUpdateRequest extends FormRequest
@@ -19,9 +20,18 @@ class ViewUpdateRequest extends FormRequest
 
     public function rules()
     {
-        $id = $this->id;
+
         return [
-            'name' => 'required|min:3|max:20|unique:views,name,' . $id,
+            'name' => [
+                'required',
+                'min:3',
+                'max:20',
+                Rule::unique('views')->where(function ($query) {
+                    return $query
+                        ->where('name', $this->name)
+                        ->whereNull('deleted_at');
+                })->ignore($this->id),
+            ],
         ];
     }
 
