@@ -16,7 +16,6 @@ class Utility
         }
         return $paramObj;
     }
-
     public static function addUpdate($paramObj)
     {
         $today_date = date('Y-m-d H:i:s');
