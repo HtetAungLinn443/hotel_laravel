@@ -23,7 +23,7 @@ Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], functi
         Route::get('create', [ViewController::class, 'viewCreate'])->name('viewCreate');
         Route::post('store', [ViewController::class, 'viewStore'])->name('viewStore');
 
-        Route::get('edit', [ViewController::class, 'viewEdit'])->name('viewEdit');
+        Route::get('edit/{id}', [ViewController::class, 'viewEdit'])->name('viewEdit');
         Route::post('update', [ViewController::class, 'viewUpdate'])->name('viewUpdate');
     });
 });

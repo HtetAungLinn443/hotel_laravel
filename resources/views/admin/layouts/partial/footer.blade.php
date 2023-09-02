@@ -32,11 +32,33 @@
 
 <script src="{{ asset('assets/backend/js/datatable/datatables.net-responsive/dataTables.responsive.min.js') }}">
 </script>
-<script src="{{ asset('assets/backend/js/datatable/datatables.net-responsive-bs/responsive.bootstrap.js') }}">
-</script>
-<script src="{{ asset('assets/backend/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') }}">
-</script>
+<script src="{{ asset('assets/backend/js/datatable/datatables.net-responsive-bs/responsive.bootstrap.js') }}"></script>
+<script src="{{ asset('assets/backend/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
 <!-- Custom Theme Scripts -->
 <script src="{{ asset('assets/backend/js/custom.js') }}"></script>
+@if (session()->has('success_msg'))
+    <script>
+        new PNotify({
+            title: 'Success!',
+            text: "{{ session()->get('success_msg') }}",
+            type: 'success',
+            styling: 'bootstrap3'
+        })
+    </script>
+@endif
+
+@if (session()->has('error_msg'))
+    <script>
+        new PNotify({
+            title: 'Error!',
+            text: "{{ session()->get('error_msg') }}",
+            type: 'error',
+            styling: 'bootstrap3'
+        })
+    </script>
+@endif
+@yield('extra_script')
 
 </body>
+
+</html>

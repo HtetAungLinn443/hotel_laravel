@@ -15,11 +15,12 @@
     <link href="{{ asset('assets/backend/css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{{ asset('assets/backend/css/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <!-- NProgress -->
     <link href="{{ asset('assets/backend/css/nprogress/nprogress.css') }}" rel="stylesheet">
     <!-- bootstrap-progressbar -->
-    <link href="{{ asset('assets/backend/css/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/backend/css/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css') }}"
+        rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="{{ asset('assets/backend/css/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
     <!-- PNotify -->
@@ -28,8 +29,10 @@
     <link href="{{ asset('assets/backend/css/pnotify/pnotify.nonblock.css') }}" rel="stylesheet">
 
     <!-- DataTable CSS -->
-    <link href="{{ asset('assets/backend/css/datatable/datatables.net-bs/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/backend/css/datatable/datatables.net-responsive-bs/responsive.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/backend/css/datatable/datatables.net-bs/dataTables.bootstrap.min.css') }}"
+        rel="stylesheet">
+    <link href="{{ asset('assets/backend/css/datatable/datatables.net-responsive-bs/responsive.bootstrap.min.css') }}"
+        rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="{{ asset('assets/backend/css/custom.min.css') }}" rel="stylesheet">

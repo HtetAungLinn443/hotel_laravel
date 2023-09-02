@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\View;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ViewCreateRequest extends FormRequest
@@ -24,7 +25,14 @@ class ViewCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'unique:views,name']
+            'name' => [
+                'required',
+                Rule::unique('views')->where(function ($query) {
+                    return $query
+                        ->where('name', $this->name)
+                        ->whereNull('deleted_at');
+                }),
+            ]
         ];
     }
 }
