@@ -8,272 +8,138 @@
     <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Semi+Condensed:100,200,300,400" rel="stylesheet">
     <title>404 Error</title>
     <style>
-        :root {
-            --main-color: #eaeaea;
-            --stroke-color: black;
-
-        }
-
-        /**/
         body {
-            background: var(--main-color);
-            max-height: 100vh;
+            background-color: #2F3242;
         }
 
-        h1 {
-            margin: 100px auto 0 auto;
-            color: var(--stroke-color);
-            font-family: 'Encode Sans Semi Condensed', Verdana, sans-serif;
-            font-size: 10rem;
-            line-height: 10rem;
-            font-weight: 200;
-            text-align: center;
-        }
-
-        h2 {
-            margin: 20px auto 30px auto;
-            font-family: 'Encode Sans Semi Condensed', Verdana, sans-serif;
-            font-size: 1.5rem;
-            font-weight: 200;
-            text-align: center;
-        }
-
-        h1,
-        h2 {
-            -webkit-transition: opacity 0.5s linear, margin-top 0.5s linear;
-            /* Safari */
-            transition: opacity 0.5s linear, margin-top 0.5s linear;
-        }
-
-        .loading h1,
-        .loading h2 {
-            margin-top: 0px;
-            opacity: 0;
-        }
-
-        .gears {
-            position: relative;
-            margin: 0 auto;
-            width: auto;
-            height: 0;
-        }
-
-        .gear {
-            position: relative;
-            z-index: 0;
-            width: 120px;
-            height: 120px;
-            margin: 0 auto;
-            border-radius: 50%;
-            background: var(--stroke-color);
-        }
-
-        .gear:before {
+        svg {
             position: absolute;
-            left: 5px;
-            top: 5px;
-            right: 5px;
-            bottom: 5px;
-            z-index: 2;
-            content: "";
-            border-radius: 50%;
-            background: var(--main-color);
-        }
-
-        .gear:after {
-            position: absolute;
-            left: 25px;
-            top: 25px;
-            z-index: 3;
-            content: "";
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: 5px solid var(--stroke-color);
-            box-sizing: border-box;
-            background: var(--main-color);
-        }
-
-        .gear.one {
-            left: -130px;
-        }
-
-        .gear.two {
-            top: -75px;
-        }
-
-        .gear.three {
-            top: -235px;
-            left: 130px;
-        }
-
-        .gear .bar {
-            position: absolute;
-            left: -15px;
             top: 50%;
-            z-index: 0;
-            width: 150px;
-            height: 30px;
-            margin-top: -15px;
-            border-radius: 5px;
-            background: var(--stroke-color);
+            left: 50%;
+            margin-top: -250px;
+            margin-left: -400px;
         }
 
-        .gear .bar:before {
+        .message-box {
+            height: 200px;
+            width: 380px;
             position: absolute;
-            left: 5px;
-            top: 5px;
-            right: 5px;
-            bottom: 5px;
-            z-index: 1;
-            content: "";
-            border-radius: 2px;
-            background: var(--main-color);
+            top: 50%;
+            left: 50%;
+            margin-top: -100px;
+            margin-left: 50px;
+            color: #FFF;
+            font-family: Roboto;
+            font-weight: 300;
         }
 
-        .gear .bar:nth-child(2) {
-            transform: rotate(60deg);
-            -webkit-transform: rotate(60deg);
+        .message-box h1 {
+            font-size: 60px;
+            line-height: 46px;
+            margin-bottom: 40px;
         }
 
-        .gear .bar:nth-child(3) {
-            transform: rotate(120deg);
-            -webkit-transform: rotate(120deg);
+        .buttons-con .action-link-wrap {
+            margin-top: 40px;
         }
 
-        @-webkit-keyframes clockwise {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
+        .buttons-con .action-link-wrap a {
+            background: #68c950;
+            padding: 8px 25px;
+            border-radius: 4px;
+            color: #FFF;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s linear;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 10px
+        }
 
+        .buttons-con .action-link-wrap a:hover {
+            background: #5A5C6C;
+            color: #fff;
+        }
+
+        #Polygon-1,
+        #Polygon-2,
+        #Polygon-3,
+        #Polygon-4,
+        #Polygon-4,
+        #Polygon-5 {
+            animation: float 1s infinite ease-in-out alternate;
+        }
+
+        #Polygon-2 {
+            animation-delay: .2s;
+        }
+
+        #Polygon-3 {
+            animation-delay: .4s;
+        }
+
+        #Polygon-4 {
+            animation-delay: .6s;
+        }
+
+        #Polygon-5 {
+            animation-delay: .8s;
+        }
+
+        @keyframes float {
             100% {
-                -webkit-transform: rotate(360deg);
+                transform: translateY(20px);
             }
         }
 
-        @-webkit-keyframes anticlockwise {
-            0% {
-                -webkit-transform: rotate(360deg);
+        @media (max-width: 450px) {
+            svg {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-top: -250px;
+                margin-left: -190px;
             }
 
-            100% {
-                -webkit-transform: rotate(0deg);
+            .message-box {
+                top: 50%;
+                left: 50%;
+                margin-top: -100px;
+                margin-left: -190px;
+                text-align: center;
             }
-        }
-
-        @-webkit-keyframes clockwiseError {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-
-            20% {
-                -webkit-transform: rotate(30deg);
-            }
-
-            40% {
-                -webkit-transform: rotate(25deg);
-            }
-
-            60% {
-                -webkit-transform: rotate(30deg);
-            }
-
-            100% {
-                -webkit-transform: rotate(0deg);
-            }
-        }
-
-        @-webkit-keyframes anticlockwiseErrorStop {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-
-            20% {
-                -webkit-transform: rotate(-30deg);
-            }
-
-            60% {
-                -webkit-transform: rotate(-30deg);
-            }
-
-            100% {
-                -webkit-transform: rotate(0deg);
-            }
-        }
-
-        @-webkit-keyframes anticlockwiseError {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-
-            20% {
-                -webkit-transform: rotate(-30deg);
-            }
-
-            40% {
-                -webkit-transform: rotate(-25deg);
-            }
-
-            60% {
-                -webkit-transform: rotate(-30deg);
-            }
-
-            100% {
-                -webkit-transform: rotate(0deg);
-            }
-        }
-
-        .gear.one {
-            -webkit-animation: anticlockwiseErrorStop 2s linear infinite;
-        }
-
-        .gear.two {
-            -webkit-animation: anticlockwiseError 2s linear infinite;
-        }
-
-        .gear.three {
-            -webkit-animation: clockwiseError 2s linear infinite;
-        }
-
-        .loading .gear.one,
-        .loading .gear.three {
-            -webkit-animation: clockwise 3s linear infinite;
-        }
-
-        .loading .gear.two {
-            -webkit-animation: anticlockwise 3s linear infinite;
         }
     </style>
 </head>
 
 <body class="loading">
-    <h1>404</h1>
-    <h2>File Not Found <b>:(</b></h2>
-    <div class="gears">
-        <div class="gear one">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-        <div class="gear two">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-        <div class="gear three">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
+
+    <svg width="380px" height="500px" viewBox="0 0 837 1045" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+            <path d="M353,9 L626.664028,170 L626.664028,487 L353,642 L79.3359724,487 L79.3359724,170 L353,9 Z"
+                id="Polygon-1" stroke="#007FB2" stroke-width="6" sketch:type="MSShapeGroup"></path>
+            <path d="M78.5,529 L147,569.186414 L147,648.311216 L78.5,687 L10,648.311216 L10,569.186414 L78.5,529 Z"
+                id="Polygon-2" stroke="#EF4A5B" stroke-width="6" sketch:type="MSShapeGroup"></path>
+            <path d="M773,186 L827,217.538705 L827,279.636651 L773,310 L719,279.636651 L719,217.538705 L773,186 Z"
+                id="Polygon-3" stroke="#795D9C" stroke-width="6" sketch:type="MSShapeGroup"></path>
+            <path d="M639,529 L773,607.846761 L773,763.091627 L639,839 L505,763.091627 L505,607.846761 L639,529 Z"
+                id="Polygon-4" stroke="#F2773F" stroke-width="6" sketch:type="MSShapeGroup"></path>
+            <path d="M281,801 L383,861.025276 L383,979.21169 L281,1037 L179,979.21169 L179,861.025276 L281,801 Z"
+                id="Polygon-5" stroke="#36B455" stroke-width="6" sketch:type="MSShapeGroup"></path>
+        </g>
+    </svg>
+    <div class="message-box">
+        <h1>404</h1>
+        <p>Page not found</p>
+        <div class="buttons-con">
+            <div class="action-link-wrap">
+                <a onclick="history.back(-1)" class="link-button link-back-button">Go Back</a>
+                <a href="{{ route('dashboard') }}" class="link-button">Go to Home Page</a>
+            </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script>
-        $(function() {
-            setTimeout(function() {
-                $('body').removeClass('loading');
-            }, 1000);
-        });
-    </script>
+
 </body>
 
 </html>

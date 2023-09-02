@@ -57,6 +57,8 @@
         })
     </script>
 @endif
+
+
 @yield('extra_script')
 
 </body>

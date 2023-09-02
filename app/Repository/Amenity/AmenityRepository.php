@@ -1,33 +1,32 @@
 <?php
 
-namespace App\Repository\View;
+namespace App\Repository\Amenity;
 
-use Carbon\Carbon;
-use App\Models\View;
-use Illuminate\Support\Facades\Auth;
-use App\Repository\View\ViewRepositoryInterface;
-use App\ReturnMessage;
-use App\Utility;
 use Exception;
+use App\Utility;
+use App\ReturnMessage;
+use App\Models\Amenity;
+use App\Repository\Amenity\AmenityRepositoryInterface;
 
-class ViewRepository implements ViewRepositoryInterface
+class AmenityRepository implements AmenityRepositoryInterface
 {
-    public function getViews()
+    public function getAmenities()
     {
-        $views = View::select('id', 'name')
+        $amenities = Amenity::select('id', 'name', 'type')
             ->orderBy('id', 'desc')
             ->whereNull('deleted_at')
             ->get();
-        return $views;
+        return $amenities;
     }
 
-    public function viewCreated(array $data)
+    public function amenityCreated(array $data)
     {
         $returnObj = array();
         $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try {
-            $paramObj           = new View();
+            $paramObj           = new Amenity();
             $paramObj->name     = $data['name'];
+            $paramObj->type     = $data['type'];
             $tempObj            = Utility::addCreated($paramObj);
             $tempObj->save();
             $returnObj['statusCode'] = ReturnMessage::OK;
@@ -38,14 +37,15 @@ class ViewRepository implements ViewRepositoryInterface
         }
     }
 
-    public function viewUpdated(array $data)
+    public function amenityUpdated(array $data)
     {
         $returnObj                  = array();
         $returnObj['statusCode']    = ReturnMessage::INTERNAL_SERVER_ERROR;
         try {
-            $paramObj   = View::find($data['id']);
-            $paramObj->name = $data['name'];
-            $tempObj    = Utility::addUpdate($paramObj);
+            $paramObj   = Amenity::find($data['id']);
+            $paramObj->name     = $data['name'];
+            $paramObj->type     = $data['type'];
+            $tempObj            = Utility::addUpdate($paramObj);
             $tempObj->save();
             $returnObj['statusCode'] = ReturnMessage::OK;
             return $returnObj;
@@ -55,9 +55,9 @@ class ViewRepository implements ViewRepositoryInterface
         }
     }
 
-    public function viewDeleted(int $id)
+    public function amenityDeleted(int $id)
     {
-        $paramObj   = View::find($id);
+        $paramObj   = Amenity::find($id);
         $tempObj    = Utility::addDelete($paramObj);
         $tempObj->save();
     }

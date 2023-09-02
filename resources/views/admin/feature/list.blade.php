@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 ">
                     <div class="x_panel">
-                        <a href="{{ route('viewCreate') }}" class="btn btn-info ">Create View</a>
+                        <a href="{{ route('featureCreate') }}" class="btn btn-info ">Create View</a>
                         <div class="x_content">
                             <br />
 
@@ -28,19 +28,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($views as $view)
+                                    @foreach ($features as $feature)
                                         <tr>
                                             <td>
-                                                {{ $view->id }}
+                                                {{ $feature->id }}
                                             </td>
                                             <td>
-                                                {{ $view->name }}
+                                                {{ $feature->name }}
                                             </td>
                                             <td style="text-align: center;">
-                                                <a href="{{ route('viewEdit', $view->id) }}" class="btn btn-sm btn-info">
+                                                <a href="{{ route('featureEdit', $feature->id) }}"
+                                                    class="btn btn-sm btn-info">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
-                                                <a href="{{ route('viewDelete', $view->id) }}" class="btn btn-sm btn-danger">
+                                                <a href="{{ route('featureDelete', $feature->id) }}"
+                                                    class="btn btn-sm btn-danger">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </a>
                                             </td>

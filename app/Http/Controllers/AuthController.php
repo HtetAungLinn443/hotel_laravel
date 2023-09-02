@@ -34,7 +34,6 @@ class AuthController extends Controller
                 ->withErrors(['message' => 'Wrong Credential!'])
                 ->withInput();
         }
-
     }
 
     public function adminLogout()

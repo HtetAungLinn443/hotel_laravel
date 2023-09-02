@@ -7,14 +7,14 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Hotel Room View List</h3>
+                    <h3>Hotel Room Bed Lists</h3>
                 </div>
             </div>
             <div class="clearfix"></div>
             <div class="row">
                 <div class="col-md-12 col-sm-12 ">
                     <div class="x_panel">
-                        <a href="{{ route('viewCreate') }}" class="btn btn-info ">Create View</a>
+                        <a href="{{ route('bedCreate') }}" class="btn btn-info ">Create Bed</a>
                         <div class="x_content">
                             <br />
 
@@ -28,19 +28,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($views as $view)
+                                    @foreach ($beds as $bed)
                                         <tr>
                                             <td>
-                                                {{ $view->id }}
+                                                {{ $bed->id }}
                                             </td>
                                             <td>
-                                                {{ $view->name }}
+                                                {{ $bed->name }}
                                             </td>
                                             <td style="text-align: center;">
-                                                <a href="{{ route('viewEdit', $view->id) }}" class="btn btn-sm btn-info">
+                                                <a href="{{ route('bedEdit', $bed->id) }}" class="btn btn-sm btn-info">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
-                                                <a href="{{ route('viewDelete', $view->id) }}" class="btn btn-sm btn-danger">
+                                                <a href="{{ route('bedDelete', $bed->id) }}" class="btn btn-sm btn-danger">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </a>
                                             </td>

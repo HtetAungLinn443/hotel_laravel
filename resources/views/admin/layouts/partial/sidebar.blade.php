@@ -6,7 +6,7 @@
                     <div class="navbar nav_title" style="border: 0;">
                         <a href="index.html" class="site_title"><i class="fa fa-hotel"></i>
                             <span>
-                               Hotel Booking
+                                Hotel Booking
                             </span>
                         </a>
                     </div>
@@ -52,8 +52,8 @@
                                 <li>
                                     <a><i class="fa fa-bed"></i> Room Bed <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="bed_create.php">Create</a></li>
-                                        <li><a href="bed_list.php">Listing</a></li>
+                                        <li><a href="{{ route('bedCreate') }}">Create</a></li>
+                                        <li><a href="{{ route('bedLists') }}">Listing</a></li>
                                     </ul>
                                 </li>
 
@@ -61,8 +61,8 @@
                                     <a><i class="fa fa-list"></i> Room Amenities<span
                                             class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="amenity_create.php">Create</a></li>
-                                        <li><a href="amenity_list.php">Listing</a></li>
+                                        <li><a href="{{ route('amenityCreate') }}">Create</a></li>
+                                        <li><a href="{{ route('amenityLists') }}">Listing</a></li>
                                     </ul>
                                 </li>
 
@@ -70,8 +70,8 @@
                                     <a><i class="fa-solid fa-hotel"></i> Room Special Feature<span
                                             class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="feature_create.php">Create</a></li>
-                                        <li><a href="feature_list.php">Listing</a></li>
+                                        <li><a href="{{ route('featureCreate') }}">Create</a></li>
+                                        <li><a href="{{ route('featureLists') }}">Listing</a></li>
                                     </ul>
                                 </li>
 
@@ -79,8 +79,8 @@
                                     <a><i class="fa-solid fa-hotel"></i> Room<span
                                             class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="room_create.php">Create</a></li>
-                                        <li><a href="room_list.php">Listing</a></li>
+                                        <li><a href="a">Create</a></li>
+                                        <li><a href="a">Listing</a></li>
                                     </ul>
                                 </li>
 
@@ -88,12 +88,12 @@
                                     <a><i class="fa-solid fa-circle-plus"></i> Reservation<span
                                             class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="reservation_create.php">Create</a></li>
-                                        <li><a href="reservation_list.php">Listing</a></li>
+                                        <li><a href="a">Create</a></li>
+                                        <li><a href="a">Listing</a></li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="hotel_setting_create.php">
+                                    <a href="a">
                                         <i class="fa fa-gear"></i> Site Setting
                                     </a>
                                 </li>

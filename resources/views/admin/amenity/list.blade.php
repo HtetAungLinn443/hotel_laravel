@@ -7,14 +7,14 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Hotel Room View List</h3>
+                    <h3>Hotel Room Amenity Lists</h3>
                 </div>
             </div>
             <div class="clearfix"></div>
             <div class="row">
                 <div class="col-md-12 col-sm-12 ">
                     <div class="x_panel">
-                        <a href="{{ route('viewCreate') }}" class="btn btn-info ">Create View</a>
+                        <a href="{{ route('amenityCreate') }}" class="btn btn-info ">Create Amenity</a>
                         <div class="x_content">
                             <br />
 
@@ -22,25 +22,37 @@
                                 cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th class="col-4">ID</th>
-                                        <th class="col-5">Name</th>
+                                        <th class="col-3 text-center">ID</th>
+                                        <th class="col-3 text-center">Name</th>
+                                        <th class="col-3 text-center">Type</th>
                                         <th class="col-3 text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($views as $view)
+                                    @foreach ($amenitys as $amenity)
                                         <tr>
                                             <td>
-                                                {{ $view->id }}
+                                                {{ $amenity->id }}
                                             </td>
                                             <td>
-                                                {{ $view->name }}
+                                                {{ $amenity->name }}
+                                            </td>
+                                            <td>
+                                                @if ($amenity->type == 0)
+                                                    General
+                                                @elseif ($amenity->type == 1)
+                                                    Bathroom
+                                                @elseif ($amenity->type == 2)
+                                                    Other
+                                                @endif
                                             </td>
                                             <td style="text-align: center;">
-                                                <a href="{{ route('viewEdit', $view->id) }}" class="btn btn-sm btn-info">
+                                                <a href="{{ route('amenityEdit', $amenity->id) }}"
+                                                    class="btn btn-sm btn-info">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
-                                                <a href="{{ route('viewDelete', $view->id) }}" class="btn btn-sm btn-danger">
+                                                <a href="{{ route('amenityDelete', $amenity->id) }}"
+                                                    class="btn btn-sm btn-danger">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </a>
                                             </td>

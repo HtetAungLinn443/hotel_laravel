@@ -1,32 +1,30 @@
 <?php
 
-namespace App\Repository\View;
+namespace App\Repository\Feature;
 
-use Carbon\Carbon;
-use App\Models\View;
-use Illuminate\Support\Facades\Auth;
-use App\Repository\View\ViewRepositoryInterface;
-use App\ReturnMessage;
-use App\Utility;
+use App\Models\SpecialFeature;
 use Exception;
+use App\Utility;
+use App\ReturnMessage;
+use App\Repository\Feature\FeatureRepositoryInterface;
 
-class ViewRepository implements ViewRepositoryInterface
+class FeatureRepository implements FeatureRepositoryInterface
 {
-    public function getViews()
+    public function getFeatures()
     {
-        $views = View::select('id', 'name')
+        $features = SpecialFeature::select('id', 'name')
             ->orderBy('id', 'desc')
             ->whereNull('deleted_at')
             ->get();
-        return $views;
+        return $features;
     }
 
-    public function viewCreated(array $data)
+    public function featureCreated(array $data)
     {
         $returnObj = array();
         $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try {
-            $paramObj           = new View();
+            $paramObj           = new SpecialFeature();
             $paramObj->name     = $data['name'];
             $tempObj            = Utility::addCreated($paramObj);
             $tempObj->save();
@@ -38,12 +36,12 @@ class ViewRepository implements ViewRepositoryInterface
         }
     }
 
-    public function viewUpdated(array $data)
+    public function featureUpdated(array $data)
     {
         $returnObj                  = array();
         $returnObj['statusCode']    = ReturnMessage::INTERNAL_SERVER_ERROR;
         try {
-            $paramObj   = View::find($data['id']);
+            $paramObj   = SpecialFeature::find($data['id']);
             $paramObj->name = $data['name'];
             $tempObj    = Utility::addUpdate($paramObj);
             $tempObj->save();
@@ -55,9 +53,9 @@ class ViewRepository implements ViewRepositoryInterface
         }
     }
 
-    public function viewDeleted(int $id)
+    public function featureDeleted(int $id)
     {
-        $paramObj   = View::find($id);
+        $paramObj   = SpecialFeature::find($id);
         $tempObj    = Utility::addDelete($paramObj);
         $tempObj->save();
     }
