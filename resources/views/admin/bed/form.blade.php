@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Hotel Booking:: Admin')
+@section('title', 'Bed ' . (isset($bed_data) ? 'Update' : 'Create') . ' Page')
 
 @section('content')
     <div class="right_col" role="main">

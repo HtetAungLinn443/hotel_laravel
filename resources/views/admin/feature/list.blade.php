@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Hotel Booking:: Admin')
+@section('title', 'Special Feature List Page')
 
 @section('content')
     <div class="right_col" role="main">

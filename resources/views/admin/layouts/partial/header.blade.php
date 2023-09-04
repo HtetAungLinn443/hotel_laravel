@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-    <title>@yield('title')</title>
+    <title>Hotel Booking::@yield('title')</title>
 
     <!-- Bootstrap -->
     <link href="{{ asset('assets/backend/css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
@@ -46,6 +46,7 @@
             margin-top: 8px;
         }
     </style>
+    @yield('extra_css')
     <!-- jQuery -->
     <script src="{{ asset('assets/backend/js/jquery/jquery.min.js') }}"></script>
 

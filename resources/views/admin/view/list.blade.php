@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Hotel Booking:: Admin')
+@section('title', 'View List Page')
 
 @section('content')
     <div class="right_col" role="main">
@@ -40,7 +40,8 @@
                                                 <a href="{{ route('viewEdit', $view->id) }}" class="btn btn-sm btn-info">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
-                                                <a href="{{ route('viewDelete', $view->id) }}" class="btn btn-sm btn-danger">
+                                                <a href="{{ route('viewDelete', $view->id) }}"
+                                                    class="btn btn-sm btn-danger">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </a>
                                             </td>
