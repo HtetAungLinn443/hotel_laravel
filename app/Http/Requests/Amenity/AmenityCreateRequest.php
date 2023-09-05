@@ -22,6 +22,7 @@ class AmenityCreateRequest extends FormRequest
                 Rule::unique('amenities')->where(function ($query) {
                     return $query
                         ->where('name', $this->name)
+                        ->where('type', $this->type)
                         ->whereNull('deleted_at');
                 }),
             ],

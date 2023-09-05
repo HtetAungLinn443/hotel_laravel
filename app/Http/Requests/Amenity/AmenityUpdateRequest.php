@@ -32,6 +32,7 @@ class AmenityUpdateRequest extends FormRequest
                 Rule::unique('bed_types')->where(function ($query) {
                     return $query
                         ->where('name', $this->name)
+                        ->where('type', $this->type)
                         ->whereNull('deleted_at');
                 })->ignore($this->id),
             ],

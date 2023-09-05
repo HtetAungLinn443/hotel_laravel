@@ -24,10 +24,10 @@ class AmenityRepository implements AmenityRepositoryInterface
         $returnObj = array();
         $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try {
-            $paramObj           = new Amenity();
-            $paramObj->name     = $data['name'];
-            $paramObj->type     = $data['type'];
-            $tempObj            = Utility::addCreated($paramObj);
+            $paramObj = new Amenity();
+            $paramObj->name = $data['name'];
+            $paramObj->type = $data['type'];
+            $tempObj = Utility::addCreated($paramObj);
             $tempObj->save();
             $returnObj['statusCode'] = ReturnMessage::OK;
             return $returnObj;
@@ -39,13 +39,13 @@ class AmenityRepository implements AmenityRepositoryInterface
 
     public function amenityUpdated(array $data)
     {
-        $returnObj                  = array();
-        $returnObj['statusCode']    = ReturnMessage::INTERNAL_SERVER_ERROR;
+        $returnObj = array();
+        $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try {
-            $paramObj   = Amenity::find($data['id']);
-            $paramObj->name     = $data['name'];
-            $paramObj->type     = $data['type'];
-            $tempObj            = Utility::addUpdate($paramObj);
+            $paramObj = Amenity::find($data['id']);
+            $paramObj->name = $data['name'];
+            $paramObj->type = $data['type'];
+            $tempObj = Utility::addUpdate($paramObj);
             $tempObj->save();
             $returnObj['statusCode'] = ReturnMessage::OK;
             return $returnObj;
@@ -57,8 +57,8 @@ class AmenityRepository implements AmenityRepositoryInterface
 
     public function amenityDeleted(int $id)
     {
-        $paramObj   = Amenity::find($id);
-        $tempObj    = Utility::addDelete($paramObj);
+        $paramObj = Amenity::find($id);
+        $tempObj = Utility::addDelete($paramObj);
         $tempObj->save();
     }
 }

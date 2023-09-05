@@ -59,7 +59,7 @@
                                     @else
                                         <select class="form-control" name="type" id="selectForm">
                                             <option value="">Choose option</option>
-                                            <option value="0" {{ old('type') == '0' ? 'selected' : '' }}>General
+                                            <option value="0" {{ old('type') == '0' ? 'selected' : '' }}>Gene ral
                                             </option>
                                             <option value="1" {{ old('type') == '1' ? 'selected' : '' }}>Bathroom
                                             </option>
@@ -93,6 +93,16 @@
 
 @section('extra_script')
     @error('name')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('type')
         <script>
             new PNotify({
                 title: 'Error!',

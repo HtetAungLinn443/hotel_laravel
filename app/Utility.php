@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class Utility
@@ -29,10 +31,35 @@ class Utility
 
     public static function addDelete($paramObj)
     {
+        $paramObj->deleted_at = date('Y-m-d H:i:s');
         if (Auth::guard()->check()) {
-            $paramObj->deleted_at = date('Y-m-d H:i:s');
             $paramObj->deleted_by = Auth::guard()->user()->id;
         }
         return $paramObj;
+    }
+
+    public static function saveDebugLog($logMessage)
+    {
+        $logs = DB::getQueryLog();
+        $query = "";
+        foreach ($logs as $logItem) {
+            $sql = $logItem["query"];
+            $binds = $logItem["bindings"];
+            $result = "";
+            $sqlChunks = explode('?', $sql);
+            foreach ($sqlChunks as $key => $sqlChunk) {
+                if (isset($binds[$key])) {
+                    $result .= $sqlChunk . '"' . $binds[$key] . '"';
+                }
+            }
+            $query .= $result . "\n" . "__________________________________________" . "\n";
+        }
+        $log = $logMessage . "\n" . $query;
+        Log::debug($log);
+    }
+    public static function saveErrorLog($logMessage)
+    {
+        $log = $logMessage;
+        Log::error($log);
     }
 }
