@@ -3,6 +3,10 @@
 namespace App\Repository\Room;
 
 use App\Models\Room;
+use App\Models\View;
+use App\Models\Amenity;
+use App\Models\BedType;
+use App\Models\SpecialFeature;
 use App\Repository\Room\RoomRepositoryInterface;
 
 

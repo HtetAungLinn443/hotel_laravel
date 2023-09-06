@@ -4,15 +4,30 @@ namespace App\Http\Controllers\Room;
 
 use Exception;
 use App\Http\Controllers\Controller;
+use App\Repository\Bed\BedRepository;
+use App\Repository\View\ViewRepository;
 use App\Http\Requests\Room\RoomCreateRequest;
+use App\Repository\Amenity\AmenityRepository;
+use App\Repository\Feature\FeatureRepository;
 use App\Repository\Room\RoomRepositoryInterface;
 
 class RoomController extends Controller
 {
     private RoomRepositoryInterface $repository;
-    public function __construct(RoomRepositoryInterface $repository)
-    {
-        $this->repository = $repository;
+    private ViewRepositoryInterface $viewRepository;
+    private BedRepositoryInterface $bedRepository;
+    private AmenityRepositoryInterface $amenityRepository;
+
+    public function __construct(
+        AmenityRepositoryInterface $amenityRepository,
+        BedRepositoryInterface $bedRepository,
+        RoomRepositoryInterface $repository,
+        ViewRepositoryInterface $viewRepository,
+    ) {
+        $this->amenityRepository    = $amenityRepository;
+        $this->bedRepository        = $bedRepository;
+        $this->repository           = $repository;
+        $this->viewRepository       = $viewRepository;
     }
 
     public function roomLists()
@@ -28,7 +43,34 @@ class RoomController extends Controller
     public function roomCreate()
     {
         try {
-            return view('admin.room.form');
+            $view_repository = new ViewRepository();
+            $view_list      = $view_repository->getViews();
+
+            $bed_repository = new BedRepository();
+            $bed_list       = $bed_repository->getBeds();
+
+            $amenity_repository = new AmenityRepository();
+            $amenity_list   = $amenity_repository->getAmenities();
+
+            $amenity_groups = array();
+            foreach($amenity_list as $row){
+                $amenity_id = $row->id;
+                $amenity_name = $row->name;
+                $amenity_type =$row->type;
+                if (!isset($amenity_groups[$amenity_type])) {
+                    $amenity_groups[$amenity_type] = array();
+                }
+                $amenity_groups[$amenity_type][] = array('id' => $amenity_id, 'name' => $amenity_name);
+            }
+            $feature_repository = new FeatureRepository();
+            $feature_list   = $feature_repository->getFeatures();
+            return view('admin.room.form', compact(
+                    'view_list',
+                    'bed_list',
+                    'amenity_groups',
+                    'feature_list'
+                )
+            );
         } catch (Exception $e) {
             $e->getMessage();
             abort(500);

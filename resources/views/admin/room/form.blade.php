@@ -68,7 +68,9 @@
                                 <div class="col-md-6 col-sm-6">
                                     <select name="room_bed" id="room_bed" class="form-control">
                                         <option value="">Choose Bed Type</option>
-                                        <option value=""></option>
+                                        @foreach ($bed_list as $bed)
+                                            <option value="{{ $bed->id }}">{{ $bed->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
@@ -92,7 +94,10 @@
                                 <div class="col-md-6 col-sm-6">
                                     <select name="room_view" id="room_view" class="form-control">
                                         <option value="">Choose View</option>
-                                        <option value=""></option>
+                                        @foreach ($view_list as $view)
+                                            <option value="{{ $view->id }}">{{ $view->name }}</option>
+                                        @endforeach
+
                                     </select>
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
@@ -146,16 +151,30 @@
                                         class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
 
-                                    <div class="amenity-group">
-
-                                        <h5 class="col-md-12"> Test</h5>
-                                        <div class="col-md-6">
-                                            <label>
-                                                <input type="checkbox" class="mr-2" value=""
-                                                    name="room_amenity[]">
-                                            </label>
+                                    @foreach ($amenity_groups as $type => $amenities)
+                                        <div class="amenity-group">
+                                            <h5 class="col-md-12 mt-3">
+                                                @if ($type == 0)
+                                                    General
+                                                @elseif ($type == 1)
+                                                    Bathroom
+                                                @else
+                                                    Other
+                                                @endif
+                                            </h5>
+                                            @foreach ($amenities as $amenity)
+                                                <div class="col-md-6">
+                                                    <label>
+                                                        <input type="checkbox" class="mr-2"
+                                                            value="{{ $amenity['id'] }}" name="room_amenity[]">
+                                                        {{ $amenity['name'] }}
+                                                    </label>
+                                                </div>
+                                            @endforeach
                                         </div>
-                                    </div>
+                                    @endforeach
+
+
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="room_amenity_error"></label>
@@ -168,11 +187,15 @@
                                     Feature<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
 
-                                    <div class="col-md-12">
-                                        <label>
-                                            <input type="checkbox" class="mr-2" value="" name="room_feature[]">
-                                        </label>
-                                    </div>
+                                    @foreach ($feature_list as $feature)
+                                        <div class="col-md-12">
+                                            <label>
+                                                <input type="checkbox" class="mr-2" value="{{ $feature->id }}"
+                                                    name="room_feature[]">
+                                                {{ $feature['name'] }}
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="room_feature_error"></label>
