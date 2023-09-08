@@ -79,7 +79,7 @@
                                     <a><i class="fa-solid fa-hotel"></i> Room<span
                                             class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="{{ route('roomLists') }}">Create</a></li>
+                                        <li><a href="{{ route('roomCreate') }}">Create</a></li>
                                         <li><a href="{{ route('roomLists') }}">Listing</a></li>
                                     </ul>
                                 </li>

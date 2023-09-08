@@ -59,7 +59,7 @@
                                     @else
                                         <select class="form-control" name="type" id="selectForm">
                                             <option value="">Choose option</option>
-                                            <option value="0" {{ old('type') == '0' ? 'selected' : '' }}>Gene ral
+                                            <option value="0" {{ old('type') == '0' ? 'selected' : '' }}>General
                                             </option>
                                             <option value="1" {{ old('type') == '1' ? 'selected' : '' }}>Bathroom
                                             </option>

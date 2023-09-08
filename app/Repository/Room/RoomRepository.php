@@ -2,8 +2,11 @@
 
 namespace App\Repository\Room;
 
+use Exception;
+use App\Utility;
 use App\Models\Room;
 use App\Models\View;
+use App\ReturnMessage;
 use App\Models\Amenity;
 use App\Models\BedType;
 use App\Models\SpecialFeature;
@@ -29,22 +32,22 @@ class RoomRepository implements RoomRepositoryInterface
         return $rooms;
     }
 
-    // public function viewCreated(array $data)
-    // {
-    //     $returnObj = array();
-    //     $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
-    //     try {
-    //         $paramObj           = new View();
-    //         $paramObj->name     = $data['name'];
-    //         $tempObj            = Utility::addCreated($paramObj);
-    //         $tempObj->save();
-    //         $returnObj['statusCode'] = ReturnMessage::OK;
-    //         return $returnObj;
-    //     } catch (Exception $e) {
-    //         $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
-    //         return $returnObj;
-    //     }
-    // }
+    public function roomCreated(array $data)
+    {
+        $returnObj = array();
+        $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+        try {
+            $paramObj           = new View();
+            $paramObj->name     = $data['name'];
+            $tempObj            = Utility::addCreated($paramObj);
+            $tempObj->save();
+            $returnObj['statusCode'] = ReturnMessage::OK;
+            return $returnObj;
+        } catch (Exception $e) {
+            $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+            return $returnObj;
+        }
+    }
 
     // public function viewUpdated(array $data)
     // {

@@ -59,6 +59,7 @@ Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], functi
         Route::get('delete/{id}', [FeatureController::class, 'featureDelete'])->name('featureDelete');
     });
 
+    // For Room
     Route::prefix('room')->group(function () {
         Route::get('/', [RoomController::class, 'roomLists'])->name('roomLists');
         Route::get('create', [RoomController::class, 'roomCreate'])->name('roomCreate');
