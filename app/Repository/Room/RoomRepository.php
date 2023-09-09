@@ -37,9 +37,19 @@ class RoomRepository implements RoomRepositoryInterface
         $returnObj = array();
         $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try {
-            $paramObj           = new View();
-            $paramObj->name     = $data['name'];
-            $tempObj            = Utility::addCreated($paramObj);
+            $paramObj                           = new View();
+            $paramObj->name                     = $data['name'];
+            $paramObj->size                     = $data['room_size'];
+            $paramObj->occupancy                = $data['room_occupation'];
+            $paramObj->bed_type_id              = $data['room_bed'];
+            $paramObj->view_id                  = $data['room_view'];
+            $paramObj->description              = $data['description'];
+            $paramObj->detail                   = $data['room_details'];
+            $paramObj->price_per_day            = $data['room_price'];
+            $paramObj->extra_bed_price_per_day  = $data['extra_bed_price'];
+            // $paramObj->thumbnail_img            = $data['thumbnail_img'];
+            
+            $tempObj                = Utility::addCreated($paramObj);
             $tempObj->save();
             $returnObj['statusCode'] = ReturnMessage::OK;
             return $returnObj;

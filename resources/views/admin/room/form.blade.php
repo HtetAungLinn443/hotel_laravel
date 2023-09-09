@@ -206,7 +206,7 @@
                                         @if (isset($room_data))
                                             <input type="hidden" name="id" value="{{ $room_data->id }}">
                                         @endif
-                                        <button type='button' class="btn btn-primary" id="submit-btn">Submit</button>
+                                        <button type='submit' class="btn btn-primary" id="submit-btns">Submit</button>
                                         <button type='reset' class="btn btn-success" id="reset-btn">Reset</button>
                                     </div>
                                 </div>
@@ -222,39 +222,124 @@
 
 @section('extra_script')
     <script src="{{ asset('assets/backend/js/pages/room_create_update.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $("#submit-btn").click(function() {
-                let error = false;
-                const room_name = $("#roomName").val();
-                const room_name_length = room_name.length;
-
-                if (room_name == '') {
-                    $("#roomName_error").text('Please fill hotel room room name');
-                    $("#roomName_error").show();
-                    error = true;
-                }
-                if (room_name_length < 5 && room_name != '') {
-                    $("#roomName_error").text('Hotel room room name must be greater then five.');
-                    $("#roomName_error").show();
-                    error = true;
-                }
-                if (room_name_length > 20 && room_name != '') {
-                    $("#roomName_error").text('Hotel room room name must be less then twenty.');
-                    $("#roomName_error").show();
-                    error = true;
-                }
-                if (!error) {
-                    $("#roomName_error").hide();
-                    $("#createForm").submit();
-                }
-            });
-            // when click reset btn
-            $("#reset-btn").click(function() {
-                $("#roomName_error").hide();
-                $('#roomName').val('');
+    @if (session()->has('error_msg'))
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ session()->get('error_msg') }}",
+                type: 'error',
+                styling: 'bootstrap3'
             })
-
-        })
-    </script>
+        </script>
+    @endif
+    @error('name')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('room_size')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('room_occupation')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('room_bed')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('room_view')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('description')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('room_details')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('room_price')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('extra_bed_price')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('room_amenity')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('room_feature')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
 @endsection

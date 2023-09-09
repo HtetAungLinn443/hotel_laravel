@@ -13,7 +13,7 @@ class RoomCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,35 @@ class RoomCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'                  => [
+                                        'required',
+                                        Rule::unique('rooms')->where(function($query){
+                                            return $query->where('name',$this->name)
+                                                        ->whereNull('deleted_at');
+                                        }),
+                                        ],
+            'room_size'             => ['required','integer'],
+            'room_occupation'       => ['required','integer'],
+            'room_bed'              => ['required','integer'],
+            'room_view'             => ['required','integer'],
+            'description'           => ['required'],
+            'room_details'          => ['required'],
+            'room_price'            => ['required'],
+            'extra_bed_price'       => ['required'],
+            'room_amenity'          => ['required'],
+            'room_feature'          => ['required']
+        ];
+    }
+
+    public function messages(){
+        return[
+            'name.required' => 'You have to fill room name',
+            'name.unique'   => 'Room name is already exit',
+            'room_size.required' => 'You have to fill room size',
+            'room_size.integer' => 'Room size must be number',
+            'room_occupation.required' => 'You have to fill room occupation',
+            'room_occupation.integer' => 'Room occupation must be number',
+
         ];
     }
 }

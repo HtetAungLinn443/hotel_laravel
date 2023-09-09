@@ -49,6 +49,7 @@ class RoomController extends Controller
             abort(500);
         }
     }
+
     public function roomCreate()
     {
         try {
