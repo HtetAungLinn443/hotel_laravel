@@ -4,14 +4,14 @@ namespace App\Repository\Room;
 
 use Exception;
 use App\Utility;
+use App\Constant;
 use App\Models\Room;
-use App\Models\View;
 use App\ReturnMessage;
-use App\Models\Amenity;
-use App\Models\BedType;
-use App\Models\SpecialFeature;
+use App\Models\RoomAmenity;
+use App\Models\RoomSpecialFeature;
+use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
 use App\Repository\Room\RoomRepositoryInterface;
-
 
 class RoomRepository implements RoomRepositoryInterface
 {
@@ -36,8 +36,10 @@ class RoomRepository implements RoomRepositoryInterface
     {
         $returnObj = array();
         $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+        DB::beginTransaction();
         try {
-            $paramObj                           = new View();
+            $uniqueName = self::getUploadImageName($data['thumb_file']);
+            $paramObj                           = new Room();
             $paramObj->name                     = $data['name'];
             $paramObj->size                     = $data['room_size'];
             $paramObj->occupancy                = $data['room_occupation'];
@@ -47,13 +49,29 @@ class RoomRepository implements RoomRepositoryInterface
             $paramObj->detail                   = $data['room_details'];
             $paramObj->price_per_day            = $data['room_price'];
             $paramObj->extra_bed_price_per_day  = $data['extra_bed_price'];
-            // $paramObj->thumbnail_img            = $data['thumbnail_img'];
-            
-            $tempObj                = Utility::addCreated($paramObj);
+            $paramObj->thumbnail_img            = $uniqueName;
+            $tempObj                            = Utility::addCreated($paramObj);
             $tempObj->save();
-            $returnObj['statusCode'] = ReturnMessage::OK;
+
+            $destination = public_path('assets/upload/' . $tempObj->id . '/thumb');
+            if (!file_exists($destination)) {
+                mkdir($destination, 0777, true);
+            }
+            self::cropAndResize(
+                $data['thumb_file'],
+                Constant::THUMB_WIDTH,
+                Constant::THUMB_HEIGHT,
+                $destination,
+                $uniqueName
+            );
+            self::roomSpecialFeatureStore($data['room_feature'], $tempObj->id);
+            self::roomAmenityStore($data['room_amenity'], $tempObj->id);
+            DB::commit();
+            $returnObj['statusCode']    = ReturnMessage::OK;
+            $returnObj['insertRoomId']  = $tempObj->id;
             return $returnObj;
         } catch (Exception $e) {
+            DB::rollback();
             $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
             return $returnObj;
         }
@@ -82,4 +100,49 @@ class RoomRepository implements RoomRepositoryInterface
     //     $tempObj    = Utility::addDelete($paramObj);
     //     $tempObj->save();
     // }
+
+    private static function roomAmenityStore($amenities, $roomId)
+    {
+        foreach ($amenities as $amenity) {
+            $paramObj                   = new RoomAmenity();
+            $paramObj->room_id          = $roomId;
+            $paramObj->amenity_id       = $amenity;
+            $tempObj                    = Utility::addCreated($paramObj);
+            $tempObj->save();
+        }
+        return true;
+    }
+    private static function roomSpecialFeatureStore($features, $roomId)
+    {
+        foreach ($features as $feature) {
+            $paramObj                       = new RoomSpecialFeature();
+            $paramObj->room_id              = $roomId;
+            $paramObj->special_feature_id   = $feature;
+            $tempObj                        = Utility::addCreated($paramObj);
+            $tempObj->save();
+        }
+        return true;
+    }
+    private static function getUploadImageName($file)
+    {
+        $extension  = $file->getClientOriginalExtension();
+        $name       = date('Ymd_His') . '_' . uniqid() . '.' . $extension;
+        return $name;
+    }
+    private static function cropAndResize(
+        $file,
+        $width,
+        $height,
+        $destination,
+        $uniqueName
+    ) {
+        $resizeImage = Image::make($file)
+            ->resize($width, $height);
+        $watermarkPath      = public_path(Constant::WATERMARK_PATH);
+        $watermark          = Image::make($watermarkPath);
+        $watermarkX = $resizeImage->width() - $watermark->width() - 10;
+        $watermarkY = $resizeImage->height() - $watermark->height() - 10;
+        $resizeImage->insert($watermark, 'bottom_right', $watermarkX, $watermarkY);
+        $resizeImage->save($destination . '/' . $uniqueName);
+    }
 }

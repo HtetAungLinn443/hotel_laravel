@@ -64,7 +64,8 @@ Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], functi
         Route::get('/', [RoomController::class, 'roomLists'])->name('roomLists');
         Route::get('create', [RoomController::class, 'roomCreate'])->name('roomCreate');
         Route::post('store', [RoomController::class, 'roomStore'])->name('roomStore');
-        Route::get('edit', [RoomController::class, 'roomEdit'])->name('roomEdit');
+        Route::get('gallery/{id}', [RoomController::class, 'roomGalleryIndex'])->name('roomGalleryIndex');
+        Route::get('edit/{id}', [RoomController::class, 'roomEdit'])->name('roomEdit');
         Route::get('delete/{id}', [RoomController::class, 'roomDelete'])->name('roomDelete');
     });
 });

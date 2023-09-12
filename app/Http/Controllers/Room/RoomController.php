@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Room;
 
 use Exception;
+use App\Utility;
 use App\Models\SpecialFeature;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Repository\Bed\BedRepository;
 use App\Repository\View\ViewRepository;
@@ -32,6 +34,7 @@ class RoomController extends Controller
         ViewRepositoryInterface $viewRepository,
 
     ) {
+        DB::connection()->enableQueryLog();
         $this->amenityRepository    = $amenityRepository;
         $this->bedRepository        = $bedRepository;
         $this->featureRepository    = $featureRepository;
@@ -43,9 +46,11 @@ class RoomController extends Controller
     {
         try {
             $rooms = $this->repository->getRooms();
+            $logMessage = "Room Listing::";
+            Utility::saveDebugLog($logMessage);
             return view('admin.room.list', compact('rooms'));
         } catch (Exception $e) {
-            $e->getMessage();
+            Utility::saveErrorLog($e->getMessage());
             abort(500);
         }
     }
@@ -68,6 +73,8 @@ class RoomController extends Controller
                 }
                 $amenity_groups[$amenity_type][] = array('id' => $amenity_id, 'name' => $amenity_name);
             }
+            $logMessage = "Room Create::";
+            Utility::saveDebugLog($logMessage);
             return view(
                 'admin.room.form',
                 compact(
@@ -78,7 +85,7 @@ class RoomController extends Controller
                 )
             );
         } catch (Exception $e) {
-            $e->getMessage();
+            Utility::saveErrorLog($e->getMessage());
             abort(500);
         }
     }
@@ -87,8 +94,11 @@ class RoomController extends Controller
     {
         try {
             $result = $this->repository->roomCreated((array) $request->all());
+            $logMessage = "Room Store::";
+            Utility::saveDebugLog($logMessage);
             if ($result['statusCode'] == 200) {
-                return to_route('roomLists')
+                $insertRoomId = $result['insertRoomId'];
+                return to_route('roomGalleryIndex', $insertRoomId)
                     ->with(['success_msg' => 'Room Create Successfully!']);
             } elseif ($result['statusCode'] == 404) {
                 abort(404);
@@ -96,21 +106,25 @@ class RoomController extends Controller
                 abort(500);
             }
         } catch (Exception $e) {
+            Utility::saveErrorLog($e->getMessage());
+            abort(500);
+        }
+    }
+    public function roomGalleryIndex($id)
+    {
+        return view('admin.room.gallery');
+    }
+
+    public function roomEdit($id)
+    {
+        try {
+            $feature_data = SpecialFeature::find($id);
+            return view('admin.feature.form', compact('feature_data'));
+        } catch (Exception $e) {
             $e->getMessage();
             abort(500);
         }
     }
-
-    // public function featureEdit($id)
-    // {
-    //     try {
-    //         $feature_data = SpecialFeature::find($id);
-    //         return view('admin.feature.form', compact('feature_data'));
-    //     } catch (Exception $e) {
-    //         $e->getMessage();
-    //         abort(500);
-    //     }
-    // }
 
     // public function featureUpdate(FeatureUpdateRequest $request)
     // {

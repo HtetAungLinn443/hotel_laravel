@@ -38,15 +38,17 @@
                         <h1>Login Form </h1>
 
                         <div>
-                            <input type="text" class="form-control " value="{{ old('username') }}" name="username" placeholder="Email or Username"  />
+                            <input type="text" class="form-control " value="{{ old('username') }}" name="username"
+                                placeholder="Email or Username" />
 
                         </div>
                         <div>
-                            <input type="password" class="form-control" name="password" placeholder="Password"  />
+                            <input type="password" class="form-control" name="password" placeholder="Password" />
                         </div>
                         <div style="text-align: start;">
                             <label for="remember">
-                                <input type="checkbox" name="remember" {{ old('remember')? "checked":"" }} value="1" id="remember" > Remember Me.
+                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}
+                                    value="1" id="remember"> Remember Me.
                             </label>
                         </div>
                         <div>
@@ -57,7 +59,7 @@
                         <div class="separator">
                             <div>
                                 <h1><i class="fa fa-hotel"></i>
-                                     !
+                                    {{ getSiteSetting()->name }}!
                                 </h1>
                                 <p>
                                     ©2023 All Rights Reserved. ! is a Bootstrap 4 template. Privacy and Terms
@@ -75,36 +77,36 @@
     <script src="{{ URL::asset('assets/backend/js/pnotify/pnotify.js') }}"></script>
     <script src="{{ URL::asset('assets/backend/js/pnotify/pnotify.buttons.js') }}"></script>
     <script src="{{ URL::asset('assets/backend/js/pnotify/pnotify.nonblock.js') }}"></script>
-@error('username')
-    <script>
-        new PNotify({
-              title: 'Error',
-              text: '{{ $message }}',
-              type: 'error',
-              styling: 'bootstrap3'
-        })
-    </script>
-@enderror
-@error('password')
-    <script>
-        new PNotify({
-              title: 'Error',
-              text: '{{ $message }}',
-              type: 'error',
-              styling: 'bootstrap3'
-        })
-    </script>
-@enderror
-@error('message')
-    <script>
-        new PNotify({
-              title: 'Error',
-              text: '{{ $message }}',
-              type: 'error',
-              styling: 'bootstrap3'
-        })
-    </script>
-@enderror
+    @error('username')
+        <script>
+            new PNotify({
+                title: 'Error',
+                text: '{{ $message }}',
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('password')
+        <script>
+            new PNotify({
+                title: 'Error',
+                text: '{{ $message }}',
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('message')
+        <script>
+            new PNotify({
+                title: 'Error',
+                text: '{{ $message }}',
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
 </body>
 
 </html>

@@ -19,13 +19,15 @@
                         <div class="x_content">
                             <br />
                             @if (isset($room_data))
-                                <form action="{{ route('roomUpdate') }}" method="POST" id="createForm">
+                                <form action="{{ route('roomUpdate') }}" method="POST" id="createForm"
+                                    enctype="multipart/form-data">
                                 @else
-                                    <form action="{{ route('roomStore') }}" method="POST" id="createForm">
+                                    <form action="{{ route('roomStore') }}" method="POST" id="createForm"
+                                        enctype="multipart/form-data">
                             @endif
                             @csrf
                             <div class="field item form-group">
-                                <label class="col-form-label col-md-3 col-sm-3  label-align" for="room_name">Room
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">Room
                                     Thumbnail<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 d-flex justify-content-center">
                                     <div class="preview-wrapper rounded  d-flex justify-content-center align-items-center">
@@ -36,8 +38,8 @@
                                             <img src="" class="preview-img" />
                                         </div>
                                     </div>
-                                    <input type="file" name="thumb_file" id="thumb_file" value=""
-                                        style="display: none;" accept="image/*">
+                                    <input type="file" name="thumb_file" id="thumb_file" style="display: none;"
+                                        accept="image/*">
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide" id="thumb_error"></label>
                             </div>
@@ -45,8 +47,8 @@
                                 <label class="col-form-label col-md-3 col-sm-3  label-align" for="room_name">Room
                                     Name<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control" name="room_name" id="room_name" placeholder="ex. Lake View"
-                                        autofocus value="" />
+                                    <input class="form-control" name="name" id="room_name" placeholder="ex. Dulex Room "
+                                        autofocus value="{{ old('name') }}" />
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error " id="room_name_error"></label>
                             </div>
@@ -56,7 +58,8 @@
                                     for="room_occupation">Occupation<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <input type="number" class="form-control" name="room_occupation" id="room_occupation"
-                                        placeholder="ex. 1" min="1" max="12" value="" />
+                                        placeholder="ex. 1" min="1" max="12"
+                                        value="{{ old('room_occupation') }}" />
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="room_occupation_error"></label>
@@ -69,7 +72,9 @@
                                     <select name="room_bed" id="room_bed" class="form-control">
                                         <option value="">Choose Bed Type</option>
                                         @foreach ($bed_list as $bed)
-                                            <option value="{{ $bed->id }}">{{ $bed->name }}</option>
+                                            <option value="{{ $bed->id }}"
+                                                {{ old('room_bed') == $bed->id ? 'selected' : '' }}>{{ $bed->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -82,7 +87,7 @@
                                     Size<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <input type="number" class="form-control" name="room_size" id="room_size"
-                                        placeholder="Enter room size" value="" />
+                                        placeholder="Enter room size" value="{{ old('room_size') }}" />
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="room_size_error"></label>
@@ -95,7 +100,9 @@
                                     <select name="room_view" id="room_view" class="form-control">
                                         <option value="">Choose View</option>
                                         @foreach ($view_list as $view)
-                                            <option value="{{ $view->id }}">{{ $view->name }}</option>
+                                            <option value="{{ $view->id }}"
+                                                {{ old('room_view') == $view->id ? 'selected' : '' }}>{{ $view->name }}
+                                            </option>
                                         @endforeach
 
                                     </select>
@@ -109,7 +116,7 @@
                                     Per Day<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <input type="number" class="form-control" name="room_price" id="room_price"
-                                        placeholder="ex. 100$" value="" />
+                                        placeholder="ex. 100$" value="{{ old('room_price') }}" />
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="room_price_error"></label>
@@ -120,7 +127,8 @@
                                     Day<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <input type="number" class="form-control" name="extra_bed_price"
-                                        id="extra_bed_price" placeholder="ex. 30$" value="" />
+                                        id="extra_bed_price" placeholder="ex. 30$"
+                                        value="{{ old('extra_bed_price') }}" />
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="extra_bed_price_error"></label>
@@ -130,7 +138,7 @@
                                 <label class="col-form-label col-md-3 col-sm-3  label-align"
                                     for="description">Description<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <textarea name="description" id="description" class="form-control" placeholder="Description" rows="4"></textarea>
+                                    <textarea name="description" id="description" class="form-control" placeholder="Description" rows="4">{{ old('description') }}</textarea>
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="description_error"></label>
@@ -140,7 +148,7 @@
                                 <label class="col-form-label col-md-3 col-sm-3  label-align"
                                     for="room_details">Details<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <textarea name="room_details" id="room_details" class="form-control" placeholder="Details" rows="4"></textarea>
+                                    <textarea name="room_details" id="room_details" class="form-control" placeholder="Details" rows="4">{{ old('room_details') }}</textarea>
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="room_details_error"></label>
@@ -166,15 +174,14 @@
                                                 <div class="col-md-6">
                                                     <label>
                                                         <input type="checkbox" class="mr-2"
-                                                            value="{{ $amenity['id'] }}" name="room_amenity[]">
+                                                            value="{{ $amenity['id'] }}" name="room_amenity[]"
+                                                            {{ is_array(old('room_amenity')) && in_array($amenity['id'], old('room_amenity')) ? 'checked' : '' }}>
                                                         {{ $amenity['name'] }}
                                                     </label>
                                                 </div>
                                             @endforeach
                                         </div>
                                     @endforeach
-
-
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="room_amenity_error"></label>
@@ -191,7 +198,8 @@
                                         <div class="col-md-12">
                                             <label>
                                                 <input type="checkbox" class="mr-2" value="{{ $feature->id }}"
-                                                    name="room_feature[]">
+                                                    name="room_feature[]"
+                                                    {{ is_array(old('room_feature')) && in_array($feature->id, old('room_feature')) ? 'checked' : '' }}>
                                                 {{ $feature['name'] }}
                                             </label>
                                         </div>
@@ -333,6 +341,16 @@
         </script>
     @enderror
     @error('room_feature')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('thumb_file')
         <script>
             new PNotify({
                 title: 'Error!',
