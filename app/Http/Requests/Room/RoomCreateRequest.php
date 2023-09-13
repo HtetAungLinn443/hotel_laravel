@@ -42,7 +42,7 @@ class RoomCreateRequest extends FormRequest
             'extra_bed_price'       => ['required', 'integer'],
             'room_amenity'          => ['required'],
             'room_feature'          => ['required'],
-            'thumb_file'            => 'required|mimes:jpeg,png,jpg,gif|file',
+            'file'                  => 'required|mimes:png,jpg,jpeg,file'
         ];
     }
 
@@ -67,9 +67,9 @@ class RoomCreateRequest extends FormRequest
             'extra_bed_price.integer'   => 'Room extra bed price must be number.',
             'room_amenity'              => 'You have to choose room amenity.',
             'room_feature'              => 'You have to choose room special feature.',
-            'thumb_file.required'       => 'You have to upload thumbnail image.',
-            'thumb_file.mimes'          => 'Thumbnail image only can upload png, jpg, jpeg, gif, web.',
-            'thumb_file.file'           => 'Thumbnail image only can upload file type.',
+            'file.required'       => 'You have to upload thumbnail image.',
+            'file.mimes'          => 'Thumbnail image only can upload png, jpg, jpeg, gif, web.',
+            'file.file'           => 'Thumbnail image only can upload file type.',
         ];
     }
 }

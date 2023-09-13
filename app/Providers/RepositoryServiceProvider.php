@@ -2,17 +2,19 @@
 
 namespace App\Providers;
 
-use App\Repository\Bed\BedRepository;
-use App\Repository\Room\RoomRepository;
-use App\Repository\View\ViewRepository;
 use Illuminate\Support\ServiceProvider;
-use App\Repository\Amenity\AmenityRepository;
-use App\Repository\Feature\FeatureRepository;
+use App\Repository\Bed\BedRepository;
 use App\Repository\Bed\BedRepositoryInterface;
+use App\Repository\Room\RoomRepository;
 use App\Repository\Room\RoomRepositoryInterface;
+use App\Repository\View\ViewRepository;
 use App\Repository\View\ViewRepositoryInterface;
+use App\Repository\Amenity\AmenityRepository;
 use App\Repository\Amenity\AmenityRepositoryInterface;
+use App\Repository\Feature\FeatureRepository;
 use App\Repository\Feature\FeatureRepositoryInterface;
+use App\Repository\RoomGallery\RoomGalleryRepository;
+use App\Repository\RoomGallery\RoomGalleryRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(AmenityRepositoryInterface::class, AmenityRepository::class);
         $this->app->bind(FeatureRepositoryInterface::class, FeatureRepository::class);
         $this->app->bind(RoomRepositoryInterface::class, RoomRepository::class);
+        $this->app->bind(RoomGalleryRepositoryInterface::class, RoomGalleryRepository::class);
     }
 
     /**

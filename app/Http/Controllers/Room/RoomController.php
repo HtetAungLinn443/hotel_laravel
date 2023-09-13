@@ -17,6 +17,8 @@ use App\Repository\Room\RoomRepositoryInterface;
 use App\Repository\View\ViewRepositoryInterface;
 use App\Repository\Amenity\AmenityRepositoryInterface;
 use App\Repository\Feature\FeatureRepositoryInterface;
+use App\Repository\RoomGallery\RoomGalleryRepositoryInterface;
+use App\Http\Requests\Room\RoomGalleryCreateRequest;
 
 class RoomController extends Controller
 {
@@ -25,6 +27,7 @@ class RoomController extends Controller
     private FeatureRepositoryInterface $featureRepository;
     private RoomRepositoryInterface $repository;
     private ViewRepositoryInterface $viewRepository;
+    private RoomGalleryRepositoryInterface $galleryRepository;
 
     public function __construct(
         AmenityRepositoryInterface $amenityRepository,
@@ -32,7 +35,7 @@ class RoomController extends Controller
         FeatureRepositoryInterface $featureRepository,
         RoomRepositoryInterface $repository,
         ViewRepositoryInterface $viewRepository,
-
+        RoomGalleryRepositoryInterface $galleryRepository
     ) {
         DB::connection()->enableQueryLog();
         $this->amenityRepository    = $amenityRepository;
@@ -40,6 +43,7 @@ class RoomController extends Controller
         $this->featureRepository    = $featureRepository;
         $this->repository           = $repository;
         $this->viewRepository       = $viewRepository;
+        $this->galleryRepository    = $galleryRepository;
     }
 
     public function roomLists()
@@ -100,19 +104,13 @@ class RoomController extends Controller
                 $insertRoomId = $result['insertRoomId'];
                 return to_route('roomGalleryIndex', $insertRoomId)
                     ->with(['success_msg' => 'Room Create Successfully!']);
-            } elseif ($result['statusCode'] == 404) {
-                abort(404);
             } else {
-                abort(500);
+                return back()->withErrors(['error_msg'=>'Room Create Fail!']);
             }
         } catch (Exception $e) {
             Utility::saveErrorLog($e->getMessage());
             abort(500);
         }
-    }
-    public function roomGalleryIndex($id)
-    {
-        return view('admin.room.gallery');
     }
 
     public function roomEdit($id)
@@ -125,6 +123,36 @@ class RoomController extends Controller
             abort(500);
         }
     }
+
+    public function roomGalleryIndex($id)
+    {
+        try{
+            Utility::saveDebugLog('Room Gallery Index Start::');
+            $room_galleries = $this->galleryRepository->getRoomGallerires((int) $id);
+            return view('admin.room.gallery', compact('room_galleries','id'));
+        }catch(Exception $e){
+            Utility::saveErrorLog($e->getMessage());
+            abort(500);
+        }
+    }
+
+    public function roomGalleryStore(RoomGalleryCreateRequest $request)
+    {
+        try{
+            Utility::saveDebugLog('Room Gallery Store::');
+            $gallery_data = $this->galleryRepository->roomGalleryStore((array) $request->all());
+            if($gallery_data == 200){
+                return back()->with(['success_msg' => 'Room Gallery Store Success']);
+            }else{
+                return back()->withErrors(['error_msg' => 'Room Gallery Store Fail!']);
+            }
+
+        }catch(Exception $e){
+            Utility::saveErrorLog($e->getMessage());
+            abort(500);
+        }
+    }
+
 
     // public function featureUpdate(FeatureUpdateRequest $request)
     // {

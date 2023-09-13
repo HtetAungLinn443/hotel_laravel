@@ -38,7 +38,7 @@
                                             <img src="" class="preview-img" />
                                         </div>
                                     </div>
-                                    <input type="file" name="thumb_file" id="thumb_file" style="display: none;"
+                                    <input type="file" name="file" id="thumb_file" style="display: none;"
                                         accept="image/*">
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide" id="thumb_error"></label>
@@ -350,7 +350,7 @@
             })
         </script>
     @enderror
-    @error('thumb_file')
+    @error('file')
         <script>
             new PNotify({
                 title: 'Error!',

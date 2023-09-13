@@ -34,11 +34,12 @@ class RoomRepository implements RoomRepositoryInterface
 
     public function roomCreated(array $data)
     {
+        DB::connection()->enableQueryLog();
         $returnObj = array();
         $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         DB::beginTransaction();
         try {
-            $uniqueName = self::getUploadImageName($data['thumb_file']);
+            $uniqueName = Utility::getUploadImageName($data['file']);
             $paramObj                           = new Room();
             $paramObj->name                     = $data['name'];
             $paramObj->size                     = $data['room_size'];
@@ -57,8 +58,8 @@ class RoomRepository implements RoomRepositoryInterface
             if (!file_exists($destination)) {
                 mkdir($destination, 0777, true);
             }
-            self::cropAndResize(
-                $data['thumb_file'],
+            Utility::cropAndResize(
+                $data['file'],
                 Constant::THUMB_WIDTH,
                 Constant::THUMB_HEIGHT,
                 $destination,
@@ -69,8 +70,10 @@ class RoomRepository implements RoomRepositoryInterface
             DB::commit();
             $returnObj['statusCode']    = ReturnMessage::OK;
             $returnObj['insertRoomId']  = $tempObj->id;
+            Utility::saveDebugLog('Room Store');
             return $returnObj;
         } catch (Exception $e) {
+            Utility::saveErrorLog($e->getMessage());
             DB::rollback();
             $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
             return $returnObj;
@@ -123,26 +126,6 @@ class RoomRepository implements RoomRepositoryInterface
         }
         return true;
     }
-    private static function getUploadImageName($file)
-    {
-        $extension  = $file->getClientOriginalExtension();
-        $name       = date('Ymd_His') . '_' . uniqid() . '.' . $extension;
-        return $name;
-    }
-    private static function cropAndResize(
-        $file,
-        $width,
-        $height,
-        $destination,
-        $uniqueName
-    ) {
-        $resizeImage = Image::make($file)
-            ->resize($width, $height);
-        $watermarkPath      = public_path(Constant::WATERMARK_PATH);
-        $watermark          = Image::make($watermarkPath);
-        $watermarkX = $resizeImage->width() - $watermark->width() - 10;
-        $watermarkY = $resizeImage->height() - $watermark->height() - 10;
-        $resizeImage->insert($watermark, 'bottom_right', $watermarkX, $watermarkY);
-        $resizeImage->save($destination . '/' . $uniqueName);
-    }
+
+
 }
