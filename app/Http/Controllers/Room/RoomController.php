@@ -19,6 +19,7 @@ use App\Repository\Amenity\AmenityRepositoryInterface;
 use App\Repository\Feature\FeatureRepositoryInterface;
 use App\Repository\RoomGallery\RoomGalleryRepositoryInterface;
 use App\Http\Requests\Room\RoomGalleryCreateRequest;
+use App\Http\Requests\Room\RoomGalleryUpdateRequest;
 
 class RoomController extends Controller
 {
@@ -98,14 +99,13 @@ class RoomController extends Controller
     {
         try {
             $result = $this->repository->roomCreated((array) $request->all());
-            $logMessage = "Room Store::";
-            Utility::saveDebugLog($logMessage);
+            Utility::saveDebugLog('Room Store::');
             if ($result['statusCode'] == 200) {
                 $insertRoomId = $result['insertRoomId'];
                 return to_route('roomGalleryIndex', $insertRoomId)
                     ->with(['success_msg' => 'Room Create Successfully!']);
             } else {
-                return back()->withErrors(['error_msg'=>'Room Create Fail!']);
+                return back()->withErrors(['error_msg' => 'Room Create Fail!']);
             }
         } catch (Exception $e) {
             Utility::saveErrorLog($e->getMessage());
@@ -117,6 +117,7 @@ class RoomController extends Controller
     {
         try {
             $feature_data = SpecialFeature::find($id);
+            Utility::saveDebugLog('Room Edit::');
             return view('admin.feature.form', compact('feature_data'));
         } catch (Exception $e) {
             $e->getMessage();
@@ -126,11 +127,11 @@ class RoomController extends Controller
 
     public function roomGalleryIndex($id)
     {
-        try{
-            Utility::saveDebugLog('Room Gallery Index Start::');
+        try {
             $room_galleries = $this->galleryRepository->getRoomGallerires((int) $id);
-            return view('admin.room.gallery', compact('room_galleries','id'));
-        }catch(Exception $e){
+            Utility::saveDebugLog('Room Gallery Index::');
+            return view('admin.room.gallery', compact('room_galleries', 'id'));
+        } catch (Exception $e) {
             Utility::saveErrorLog($e->getMessage());
             abort(500);
         }
@@ -138,46 +139,65 @@ class RoomController extends Controller
 
     public function roomGalleryStore(RoomGalleryCreateRequest $request)
     {
-        try{
-            Utility::saveDebugLog('Room Gallery Store::');
+        try {
             $gallery_data = $this->galleryRepository->roomGalleryStore((array) $request->all());
-            if($gallery_data == 200){
+            Utility::saveDebugLog('Room Gallery Store::');
+            if ($gallery_data == 200) {
                 return back()->with(['success_msg' => 'Room Gallery Store Success']);
-            }else{
+            } else {
                 return back()->withErrors(['error_msg' => 'Room Gallery Store Fail!']);
             }
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             Utility::saveErrorLog($e->getMessage());
             abort(500);
         }
     }
 
+    public function roomGalleryEdit($id)
+    {
+        try {
+            $gallery_res = $this->galleryRepository->roomGalleryEdit((int) $id);
+            Utility::saveDebugLog('Room Gallery Edit::');
+            if ($gallery_res['statusCode'] == 200) {
+                $gallery_update = $gallery_res['gallery_res'];
+                return view('admin.room.gallery', compact('gallery_update'));
+            } else {
+                abort(404);
+            }
+        } catch (Exception $e) {
+            Utility::saveErrorLog($e->getMessage());
+            abort(500);
+        }
+    }
+    public function roomGalleryUpdate(RoomGalleryUpdateRequest $request)
+    {
+        try {
+            if ($request->file == null) {
+                return to_route('roomGalleryIndex', $request->room_id)
+                    ->with(['success_msg' => 'Room Gallery Update Successfully.']);
+            } else {
+                $result = $this->galleryRepository->roomGalleryUpdate((array) $request->all());
+                Utility::saveDebugLog('Room Gallery Update::');
+                if ($result == 200) {
+                    return to_route('roomGalleryIndex', $request->room_id)->with(['success_msg' => 'Room Gallery Update Successfully.']);
+                } else {
+                    return to_route('roomGalleryIndex', $request->room_id)->withErrors(['error_msg' => 'Room Gallery Update Fail!']);
+                }
+            }
+        } catch (Exception $e) {
+            Utility::saveErrorLog($e->getMessage());
+            abort(500);
+        }
+    }
 
-    // public function featureUpdate(FeatureUpdateRequest $request)
-    // {
-    //     try {
-    //         $result = $this->repository->featureUpdated((array) $request->all());
-    //         if ($result['statusCode'] == 200) {
-    //             return to_route('featureLists')
-    //                 ->with(['success_msg' => 'Room Special Feature Update Successfully!']);
-    //         } elseif ($result['statusCode'] == 404) {
-    //             abort(404);
-    //         } else {
-    //             abort(500);
-    //         }
-    //     } catch (Exception $e) {
-    //         abort(500);
-    //     }
-    // }
-
-    // public function featureDelete($id)
-    // {
-    //     try {
-    //         $delete     = $this->repository->featureDeleted((int) $id);
-    //         return redirect()->back()->with('success_msg', 'Room Special Feature Deleted!');
-    //     } catch (Exception $e) {
-    //         abort(500);
-    //     }
-    // }
+    public function roomGalleryDelete($id)
+    {
+        try {
+            $this->galleryRepository->roomGalleryDelete((int) $id);
+            return back()->with('success_msg', 'Room Gallery Deleted.');
+        } catch (Exception $e) {
+            Utility::saveErrorLog($e->getMessage());
+            abort(500);
+        }
+    }
 }

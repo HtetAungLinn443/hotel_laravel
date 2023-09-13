@@ -24,13 +24,17 @@ class RoomGalleryCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required|mimes:png,jpg,jpeg,git'
+            'room_id'   => 'required|integer',
+            'file'      => 'required|mimes:png,jpg,jpeg,git'
         ];
     }
-    public function messages(){
+    public function messages()
+    {
         return [
-            'file.required' => 'Please Upload Room Gallery Image',
-            'file.mimes'    => 'Gallery Image must be png,jpg,jpeg,git'
+            'room_id.required'  => 'Room Id is Required.',
+            'room_id.integer'   => 'Room Id must be Number.',
+            'file.required'     => 'Please Upload Room Gallery Image.',
+            'file.mimes'        => 'Gallery Image must be png,jpg,jpeg,gif.'
         ];
     }
 }

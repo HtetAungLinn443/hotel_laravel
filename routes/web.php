@@ -66,7 +66,13 @@ Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], functi
         Route::post('store', [RoomController::class, 'roomStore'])->name('roomStore');
         Route::get('edit/{id}', [RoomController::class, 'roomEdit'])->name('roomEdit');
         Route::get('delete/{id}', [RoomController::class, 'roomDelete'])->name('roomDelete');
-        Route::get('gallery/{id}', [RoomController::class, 'roomGalleryIndex'])->name('roomGalleryIndex');
-        Route::post('gallery', [RoomController::class, 'roomGalleryStore'])->name('roomGalleryStore');
+
+        Route::prefix('gallery')->group(function () {
+            Route::get('/{id}', [RoomController::class, 'roomGalleryIndex'])->name('roomGalleryIndex');
+            Route::post('', [RoomController::class, 'roomGalleryStore'])->name('roomGalleryStore');
+            Route::get('edit/{id}', [RoomController::class, 'roomGalleryEdit'])->name('roomGalleryEdit');
+            Route::post('update', [RoomController::class, 'roomGalleryUpdate'])->name('roomGalleryUpdate');
+            Route::get('delete/{id}', [RoomController::class, 'roomGalleryDelete'])->name('roomGalleryDelete');
+        });
     });
 });
