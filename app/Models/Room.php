@@ -24,4 +24,9 @@ class Room extends Model
         'updated_by',
         'deleted_by',
     ];
+
+    public function getViewNameByRoom()
+    {
+        return $this->belongsTo(View::class, 'view_id', 'id');
+    }
 }

@@ -22,8 +22,9 @@
                                 cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th class="col-4">ID</th>
-                                        <th class="col-5">Name</th>
+                                        <th class="col-3">ID</th>
+                                        <th class="col-3">Name</th>
+                                        <th class="col-3">Room Name</th>
                                         <th class="col-3 text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -35,6 +36,9 @@
                                             </td>
                                             <td>
                                                 {{ $view->name }}
+                                            </td>
+                                            <td>
+                                                {{ getRoomNameByView($view) }}
                                             </td>
                                             <td style="text-align: center;">
                                                 <a href="{{ route('viewEdit', $view->id) }}" class="btn btn-sm btn-info">

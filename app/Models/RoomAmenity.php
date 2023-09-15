@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\RoomAmenity;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class RoomAmenity extends Model
 {
@@ -16,4 +17,9 @@ class RoomAmenity extends Model
         'updated_by',
         'deleted_by',
     ];
+
+    public function getAmenityByRoom():HasMany
+    {
+        return $this->hasMany(RoomAmenity::class, 'amenity_id', 'id');
+    }
 }

@@ -78,8 +78,6 @@ class RoomController extends Controller
                 }
                 $amenity_groups[$amenity_type][] = array('id' => $amenity_id, 'name' => $amenity_name);
             }
-            $logMessage = "Room Create::";
-            Utility::saveDebugLog($logMessage);
             return view(
                 'admin.room.form',
                 compact(
@@ -116,11 +114,32 @@ class RoomController extends Controller
     public function roomEdit($id)
     {
         try {
-            $feature_data = SpecialFeature::find($id);
+            $amenity_list   = $this->amenityRepository->getAmenities();
+            $bed_list       = $this->bedRepository->getBeds();
+            $feature_list   = $this->featureRepository->getFeatures();
+            $view_list      = $this->viewRepository->getViews();
+
+            $amenity_groups = array();
+            foreach ($amenity_list as $row) {
+                $amenity_id = $row->id;
+                $amenity_name = $row->name;
+                $amenity_type = $row->type;
+                if (!isset($amenity_groups[$amenity_type])) {
+                    $amenity_groups[$amenity_type] = array();
+                }
+                $amenity_groups[$amenity_type][] = array('id' => $amenity_id, 'name' => $amenity_name);
+            }
+            $room_data = $this->repository->roomEdit((int) $id);
             Utility::saveDebugLog('Room Edit::');
-            return view('admin.feature.form', compact('feature_data'));
+            return view('admin.room.form', compact(
+                'room_data',
+                'amenity_groups',
+                'bed_list',
+                'feature_list',
+                'view_list',
+            ));
         } catch (Exception $e) {
-            $e->getMessage();
+            Utility::saveErrorLog($e->getMessage());
             abort(500);
         }
     }

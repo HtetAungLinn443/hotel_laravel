@@ -65,6 +65,7 @@ Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], functi
         Route::get('create', [RoomController::class, 'roomCreate'])->name('roomCreate');
         Route::post('store', [RoomController::class, 'roomStore'])->name('roomStore');
         Route::get('edit/{id}', [RoomController::class, 'roomEdit'])->name('roomEdit');
+        Route::get('update',[RoomController::class,'roomUpdate'])->name('roomUpdate');
         Route::get('delete/{id}', [RoomController::class, 'roomDelete'])->name('roomDelete');
 
         Route::prefix('gallery')->group(function () {

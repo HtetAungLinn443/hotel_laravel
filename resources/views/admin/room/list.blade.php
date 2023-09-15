@@ -31,14 +31,16 @@
                                 cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th class="col-2 text-center">Image</th>
-                                        <th class="col-1 text-center">ID</th>
-                                        <th class="col-2 text-center">Name</th>
-                                        <th class="col-1 text-center">Size</th>
-                                        <th class="col-1 text-center">Occupancy</th>
-                                        <th class="col-1 text-center">Price Per Day</th>
-                                        <th class="col-1 text-center">Extra Bed Price</th>
-                                        <th class="col-2 text-center">Action</th>
+                                        <th class="text-center">Image</th>
+                                        <th class="text-center">ID</th>
+                                        <th class=" text-center">Name</th>
+                                        <th class="text-center">Size</th>
+                                        <th class="text-center">Occupancy</th>
+                                        <th class="text-center">Bed</th>
+                                        <th class="text-center">View</th>
+                                        <th class="text-center">Price Per Day</th>
+                                        <th class="text-center">Extra Bed Price</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -59,6 +61,12 @@
                                             </td>
                                             <td class="text-center">
                                                 {{ $room->occupancy }}
+                                            </td>
+                                            <td>
+                                                {{ $room->bed_name }}
+                                            </td>
+                                            <td>
+                                                {{ $room->getViewNameByRoom->name }}
                                             </td>
                                             <td class="text-center">
                                                 {{ $room->price_per_day }}

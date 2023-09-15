@@ -18,23 +18,26 @@ class RoomRepository implements RoomRepositoryInterface
     public function getRooms()
     {
         $rooms = Room::select(
-            'id',
-            'name',
-            'size',
-            'occupancy',
-            'price_per_day',
-            'extra_bed_price_per_day',
-            'thumbnail_img',
+            'rooms.id',
+            'rooms.name',
+            'rooms.size',
+            'rooms.occupancy',
+            'rooms.view_id',
+            'rooms.price_per_day',
+            'rooms.extra_bed_price_per_day',
+            'rooms.thumbnail_img',
+            'bed_types.name as bed_name',
         )
-            ->orderBy('id', 'desc')
-            ->whereNull('deleted_at')
+            ->leftJoin('bed_types','bed_types.id','rooms.bed_type_id')
+            ->orderBy('rooms.id', 'desc')
+            ->whereNull('rooms.deleted_at')
+            ->whereNull('bed_types.deleted_at')
             ->get();
         return $rooms;
     }
 
     public function roomCreated(array $data)
     {
-        DB::connection()->enableQueryLog();
         $returnObj = array();
         $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         DB::beginTransaction();
@@ -70,32 +73,24 @@ class RoomRepository implements RoomRepositoryInterface
             DB::commit();
             $returnObj['statusCode']    = ReturnMessage::OK;
             $returnObj['insertRoomId']  = $tempObj->id;
-            Utility::saveDebugLog('Room Store');
             return $returnObj;
         } catch (Exception $e) {
-            Utility::saveErrorLog($e->getMessage());
             DB::rollback();
             $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
             return $returnObj;
         }
     }
-
-    // public function viewUpdated(array $data)
-    // {
-    //     $returnObj                  = array();
-    //     $returnObj['statusCode']    = ReturnMessage::INTERNAL_SERVER_ERROR;
-    //     try {
-    //         $paramObj   = View::find($data['id']);
-    //         $paramObj->name = $data['name'];
-    //         $tempObj    = Utility::addUpdate($paramObj);
-    //         $tempObj->save();
-    //         $returnObj['statusCode'] = ReturnMessage::OK;
-    //         return $returnObj;
-    //     } catch (Exception $e) {
-    //         $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
-    //         return $returnObj;
-    //     }
-    // }
+    public function roomEdit(int $id)
+    {
+        try{
+            $roomData = Room::find($id);
+            return $roomData;
+        }catch(Exception $e){
+            Utility::saveErrorLog($e->getMessage());
+            $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+            return $returnObj;
+        }
+    }
 
     // public function viewDeleted(int $id)
     // {

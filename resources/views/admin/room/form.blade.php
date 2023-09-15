@@ -31,11 +31,19 @@
                                     Thumbnail<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 d-flex justify-content-center">
                                     <div class="preview-wrapper rounded  d-flex justify-content-center align-items-center">
-                                        <label class="thumb-upload btn btn-info">Upload
+                                        <label class="thumb-upload btn btn-info"
+                                            style="display:{{ isset($room_data) ? 'none' : '' }};">Upload
                                             Image</label>
-                                        <div class="preview-container" style="display:none;">
+                                        <div class="preview-container"
+                                            style="display:{{ isset($room_data) ? '' : 'none' }};">
                                             <a class="thumb-update btn btn-info text-white">Update Image</a>
-                                            <img src="" class="preview-img" />
+                                            @if (isset($room_data))
+                                                <img src="{{ asset('assets/upload/' . $room_data->id . '/thumb/' . $room_data->thumbnail_img) }}"
+                                                    class="preview-img" />
+                                            @else
+                                                <img src="" class="preview-img" />
+                                            @endif
+
                                         </div>
                                     </div>
                                     <input type="file" name="file" id="thumb_file" style="display: none;"
@@ -48,7 +56,7 @@
                                     Name<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <input class="form-control" name="name" id="room_name" placeholder="ex. Dulex Room "
-                                        autofocus value="{{ old('name') }}" />
+                                        autofocus value="{{ old('name', isset($room_data) ? $room_data->name : '') }}" />
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error " id="room_name_error"></label>
                             </div>
@@ -59,7 +67,7 @@
                                 <div class="col-md-6 col-sm-6">
                                     <input type="number" class="form-control" name="room_occupation" id="room_occupation"
                                         placeholder="ex. 1" min="1" max="12"
-                                        value="{{ old('room_occupation') }}" />
+                                        value="{{ old('room_occupation', isset($room_data) ? $room_data->occupancy : '') }}" />
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="room_occupation_error"></label>
@@ -73,7 +81,8 @@
                                         <option value="">Choose Bed Type</option>
                                         @foreach ($bed_list as $bed)
                                             <option value="{{ $bed->id }}"
-                                                {{ old('room_bed') == $bed->id ? 'selected' : '' }}>{{ $bed->name }}
+                                                {{ old('room_bed', isset($room_data) ? $room_data->bed_type_id : '') == $bed->id ? 'selected' : '' }}>
+                                                {{ $bed->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -87,7 +96,8 @@
                                     Size<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <input type="number" class="form-control" name="room_size" id="room_size"
-                                        placeholder="Enter room size" value="{{ old('room_size') }}" />
+                                        placeholder="Enter room size"
+                                        value="{{ old('room_size', isset($room_data) ? $room_data->size : '') }}" />
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="room_size_error"></label>
@@ -101,7 +111,8 @@
                                         <option value="">Choose View</option>
                                         @foreach ($view_list as $view)
                                             <option value="{{ $view->id }}"
-                                                {{ old('room_view') == $view->id ? 'selected' : '' }}>{{ $view->name }}
+                                                {{ old('room_view', isset($room_data) ? $room_data->view_id : '') == $view->id ? 'selected' : '' }}>
+                                                {{ $view->name }}
                                             </option>
                                         @endforeach
 
@@ -116,7 +127,8 @@
                                     Per Day<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <input type="number" class="form-control" name="room_price" id="room_price"
-                                        placeholder="ex. 100$" value="{{ old('room_price') }}" />
+                                        placeholder="ex. 100$"
+                                        value="{{ old('room_price', isset($room_data) ? $room_data->price_per_day : '') }}" />
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="room_price_error"></label>
@@ -128,7 +140,7 @@
                                 <div class="col-md-6 col-sm-6">
                                     <input type="number" class="form-control" name="extra_bed_price"
                                         id="extra_bed_price" placeholder="ex. 30$"
-                                        value="{{ old('extra_bed_price') }}" />
+                                        value="{{ old('extra_bed_price', isset($room_data) ? $room_data->extra_bed_price_per_day : '') }}" />
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="extra_bed_price_error"></label>
@@ -138,7 +150,7 @@
                                 <label class="col-form-label col-md-3 col-sm-3  label-align"
                                     for="description">Description<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <textarea name="description" id="description" class="form-control" placeholder="Description" rows="4">{{ old('description') }}</textarea>
+                                    <textarea name="description" id="description" class="form-control" placeholder="Description" rows="4">{{ old('description', isset($room_data) ? $room_data->description : '') }}</textarea>
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="description_error"></label>
@@ -148,7 +160,7 @@
                                 <label class="col-form-label col-md-3 col-sm-3  label-align"
                                     for="room_details">Details<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <textarea name="room_details" id="room_details" class="form-control" placeholder="Details" rows="4">{{ old('room_details') }}</textarea>
+                                    <textarea name="room_details" id="room_details" class="form-control" placeholder="Details" rows="4">{{ old('room_details', isset($room_data) ? $room_data->detail : '') }}</textarea>
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="room_details_error"></label>

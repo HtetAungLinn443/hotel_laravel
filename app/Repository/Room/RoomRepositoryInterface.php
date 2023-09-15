@@ -6,6 +6,7 @@ interface RoomRepositoryInterface
 {
     public function getRooms();
     public function roomCreated(array $data);
+    public function roomEdit(int $id);
     // public function viewUpdated(array $data);
     // public function viewDeleted(int $id);
 }

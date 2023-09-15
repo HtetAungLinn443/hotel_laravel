@@ -79,7 +79,6 @@ class Utility
         $watermarkY = $resizeImage->height() - $watermark->height() - 10;
         $resizeImage->insert($watermark, 'bottom_right', $watermarkX, $watermarkY);
         $resizeImage->save($destination . '/' . $uniqueName);
-        
     }
 
     public static function getUploadImageName($file)
