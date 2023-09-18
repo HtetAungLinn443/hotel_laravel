@@ -164,10 +164,7 @@
                                             <button type='submit' class="btn btn-primary"
                                                 id="submit-btn">Submit</button>
                                             <button type='reset' class="btn btn-success" id="reset-btn">Reset</button>
-                                            <input type="hidden" name="form-sub" value="1">
-
                                             <input type="hidden" name="id" value="">
-
                                         </div>
                                     </div>
                                 </div>
@@ -178,4 +175,16 @@
             </div>
         </div>
     </div>
+@endsection
+@section('extra_script')
+    <script>
+        $(document).ready(function() {
+            $('#check_in').datetimepicker({
+                format: 'hh:mm A'
+            });
+            $('#check_out').datetimepicker({
+                format: 'hh:mm A'
+            });
+        })
+    </script>
 @endsection

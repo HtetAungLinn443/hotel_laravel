@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Feature;
 
-use Exception;
+use Exception;   
 use App\Utility;
 use App\Models\SpecialFeature;
 use Illuminate\Support\Facades\DB;

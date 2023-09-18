@@ -59,7 +59,7 @@
                         <div class="separator">
                             <div>
                                 <h1><i class="fa fa-hotel"></i>
-                                    {{ getSiteSetting()->name }}!
+                                    {{ getSiteSetting() !== null ? getSiteSetting()->name : '' }}!
                                 </h1>
                                 <p>
                                     ©2023 All Rights Reserved. ! is a Bootstrap 4 template. Privacy and Terms

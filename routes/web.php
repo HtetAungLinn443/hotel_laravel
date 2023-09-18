@@ -10,10 +10,8 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Amenity\AmenityController;
 use App\Http\Controllers\Feature\FeatureController;
 use App\Http\Controllers\Setting\SettingController;
+use App\Http\Controllers\Frontend\FrontendController;
 
-Route::get('/', function () {
-    return redirect('admin-backend/login');
-});
 Route::prefix('admin-backend')->group(function () {
     Route::get('/login', [AuthController::class, 'index']);
     Route::post('/login', [AuthController::class, 'adminLogin'])->name('adminLogin');
@@ -84,3 +82,8 @@ Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], functi
         Route::get('/', [SettingController::class, 'index'])->name('settingForm');
     });
 });
+
+Route::get('/',[FrontendController::class,'index'])->name('userHome');
+Route::get('/rooms',[FrontendController::class,'index'])->name('userRooms');
+Route::get('/about',[FrontendController::class,'index'])->name('userAbout');
+Route::get('/contact',[FrontendController::class,'index'])->name('userContact');
