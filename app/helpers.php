@@ -10,17 +10,28 @@ if (!function_exists('getSiteSetting')) {
     }
 }
 
-if(!function_exists('getRoomNameByView')){
+if (!function_exists('getRoomNameByView')) {
     function getRoomNameByView($view)
     {
         $room_name = '';
-        if($view->getRoomsByView() != null){
-            // dd($view->getRoomsByView);
-            foreach($view->getRoomsByView as $room){
-                $room_name .= $room->name ;
+        if ($view->getRoomsByView() != null) {
+            foreach ($view->getRoomsByView as $room) {
+                $room_name .= ' ' . $room->name . ',';
             }
-            return rtrim($room_name, ',');
         }
+        return rtrim($room_name, ',');
+    }
+}
 
+if (!function_exists('getRoomNameByBed')) {
+    function getRoomNameByBed($bed)
+    {
+        $room_name = '';
+        if ($bed->getRoomsByBed() != null) {
+            foreach ($bed->getRoomsByBed as $room) {
+                $room_name .= ' ' . $room->name . ',';
+            }
+        }
+        return rtrim($room_name, ',');
     }
 }

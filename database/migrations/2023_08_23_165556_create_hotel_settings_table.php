@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -23,7 +24,7 @@ return new class extends Migration {
             $table->string('size_unit', 20);
             $table->string('occupancy', 20);
             $table->string('price_unit', 20);
-            $table->string('logo_path', 20);
+            $table->string('logo_path', 200);
             $table->integer('created_by');
             $table->integer('updated_by');
             $table->integer('deleted_by')->nullable();

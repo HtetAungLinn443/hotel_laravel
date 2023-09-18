@@ -77,7 +77,7 @@
                                 <div class="form-group">
                                     <div class="col-md-6 offset-md-3 d-flex justify-content-between">
                                         <button type='submit' class="btn btn-primary" id="submit-btn">Upload</button>
-                                        <button type='reset' class="btn btn-success" id="reset-btn">Reset</button>
+
                                         <a class="btn btn-dark" href="{{ route('roomLists') }}">Next</a>
                                         <input type="hidden" name="room_id"
                                             value="{{ isset($gallery_update) ? $gallery_update->room_id : $id }}">

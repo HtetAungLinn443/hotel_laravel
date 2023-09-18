@@ -22,8 +22,9 @@
                                 cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th class="col-4">ID</th>
-                                        <th class="col-5">Name</th>
+                                        <th class="col-3">ID</th>
+                                        <th class="col-3">Name</th>
+                                        <th class="col-3">Room Name</th>
                                         <th class="col-3 text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -36,11 +37,17 @@
                                             <td>
                                                 {{ $bed->name }}
                                             </td>
+                                            <td>
+                                                <span>{{ getRoomNameByBed($bed) }}</span>
+                                            </td>
                                             <td style="text-align: center;">
-                                                <a href="{{ route('bedEdit', $bed->id) }}" class="btn btn-sm btn-info">
+                                                <a href="{{ route('bedEdit', $bed->id) }}" class="btn btn-sm btn-info"
+                                                    title="{{ route('bedEdit', $bed->id) }}">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
-                                                <a href="{{ route('bedDelete', $bed->id) }}" class="btn btn-sm btn-danger">
+                                                <a href="{{ route('bedDelete', $bed->id) }}" class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Are you sure you went delete room bed')"
+                                                    title="{{ route('bedDelete', $bed->id) }}">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </a>
                                             </td>

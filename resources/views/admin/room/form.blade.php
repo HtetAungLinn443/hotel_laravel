@@ -165,7 +165,6 @@
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"
                                     id="room_details_error"></label>
                             </div>
-
                             <div class="field item form-group my-3">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Room Amenity<span
                                         class="required">*</span></label>
@@ -187,7 +186,7 @@
                                                     <label>
                                                         <input type="checkbox" class="mr-2"
                                                             value="{{ $amenity['id'] }}" name="room_amenity[]"
-                                                            {{ is_array(old('room_amenity')) && in_array($amenity['id'], old('room_amenity')) ? 'checked' : '' }}>
+                                                            {{ (is_array(old('room_amenity')) && in_array($amenity['id'], old('room_amenity'))) || (isset($amenity_by_room_id) && is_array($amenity_by_room_id) && in_array($amenity['id'], $amenity_by_room_id)) ? 'checked' : '' }}>
                                                         {{ $amenity['name'] }}
                                                     </label>
                                                 </div>
@@ -211,7 +210,7 @@
                                             <label>
                                                 <input type="checkbox" class="mr-2" value="{{ $feature->id }}"
                                                     name="room_feature[]"
-                                                    {{ is_array(old('room_feature')) && in_array($feature->id, old('room_feature')) ? 'checked' : '' }}>
+                                                    {{ (is_array(old('room_feature')) && in_array($feature->id, old('room_feature'))) || (isset($feature_by_room_id) && is_array($feature_by_room_id) && in_array($feature->id, $feature_by_room_id)) ? 'checked' : '' }}>
                                                 {{ $feature['name'] }}
                                             </label>
                                         </div>

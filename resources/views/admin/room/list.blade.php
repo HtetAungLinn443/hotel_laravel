@@ -6,7 +6,7 @@
     <style>
         table tbody tr {
             margin: 0 auto;
-            line-height: 100px;
+            line-height: 80px;
         }
     </style>
 @endsection
@@ -31,9 +31,9 @@
                                 cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Image</th>
                                         <th class="text-center">ID</th>
-                                        <th class=" text-center">Name</th>
+                                        <th class="text-center">Image</th>
+                                        <th class="text-center">Name</th>
                                         <th class="text-center">Size</th>
                                         <th class="text-center">Occupancy</th>
                                         <th class="text-center">Bed</th>
@@ -46,12 +46,12 @@
                                 <tbody>
                                     @foreach ($rooms as $room)
                                         <tr>
-                                            <td class=" d-flex justify-content-center align-item-center">
-                                                <img src="https://images.pexels.com/photos/12761588/pexels-photo-12761588.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
-                                                    alt="{{ $room->name }}" style="height:100px; overflow:hidden;">
-                                            </td>
                                             <td class="text-center">
                                                 <span>{{ $room->id }}</span>
+                                            </td>
+                                            <td class=" d-flex justify-content-center align-item-center">
+                                                <img src="{{ asset('assets/upload/' . $room->id . '/thumb/' . $room->thumbnail_img) }}"
+                                                    alt="{{ $room->name }}" style="height:80px; overflow:hidden;">
                                             </td>
                                             <td class="text-center">
                                                 {{ $room->name }}
@@ -62,10 +62,10 @@
                                             <td class="text-center">
                                                 {{ $room->occupancy }}
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 {{ $room->bed_name }}
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 {{ $room->getViewNameByRoom->name }}
                                             </td>
                                             <td class="text-center">
@@ -75,14 +75,23 @@
                                                 {{ $room->extra_bed_price_per_day }}
                                             </td>
                                             <td class="text-center">
-                                                <a href="{{ route('roomEdit', $room->id) }}" class="btn btn-sm btn-info">
+                                                <a href="{{ route('roomGalleryIndex', $room->id) }}"
+                                                    class="btn btn-sm btn-info"
+                                                    title="{{ route('roomGalleryIndex', $room->id) }}">
+                                                    <i class="fa-solid fa-image"></i>
+                                                </a>
+                                                <a href="{{ route('roomDetail', $room->id) }}" class="btn btn-sm btn-info"
+                                                    title="{{ route('roomDetail', $room->id) }}">
                                                     <i class="fa-regular fa-eye"></i>
                                                 </a>
-                                                <a href="{{ route('roomEdit', $room->id) }}" class="btn btn-sm btn-info">
+                                                <a href="{{ route('roomEdit', $room->id) }}" class="btn btn-sm btn-info"
+                                                    title="{{ route('roomEdit', $room->id) }}">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
                                                 <a href="{{ route('roomDelete', $room->id) }}"
-                                                    class="btn btn-sm btn-danger">
+                                                    class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Are you sure you went delete room')"
+                                                    title="{{ route('roomDelete', $room->id) }}">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </a>
                                             </td>

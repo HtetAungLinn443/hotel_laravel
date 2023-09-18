@@ -4,11 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\Bed\BedController;
+use App\Http\Controllers\Room\RoomController;
 use App\Http\Controllers\View\ViewController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Amenity\AmenityController;
 use App\Http\Controllers\Feature\FeatureController;
-use App\Http\Controllers\Room\RoomController;
+use App\Http\Controllers\Setting\SettingController;
 
 Route::get('/', function () {
     return redirect('admin-backend/login');
@@ -65,7 +66,8 @@ Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], functi
         Route::get('create', [RoomController::class, 'roomCreate'])->name('roomCreate');
         Route::post('store', [RoomController::class, 'roomStore'])->name('roomStore');
         Route::get('edit/{id}', [RoomController::class, 'roomEdit'])->name('roomEdit');
-        Route::get('update',[RoomController::class,'roomUpdate'])->name('roomUpdate');
+        Route::post('update', [RoomController::class, 'roomUpdate'])->name('roomUpdate');
+        Route::get('detail/{id}', [RoomController::class, 'roomDetail'])->name('roomDetail');
         Route::get('delete/{id}', [RoomController::class, 'roomDelete'])->name('roomDelete');
 
         Route::prefix('gallery')->group(function () {
@@ -75,5 +77,10 @@ Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], functi
             Route::post('update', [RoomController::class, 'roomGalleryUpdate'])->name('roomGalleryUpdate');
             Route::get('delete/{id}', [RoomController::class, 'roomGalleryDelete'])->name('roomGalleryDelete');
         });
+    });
+
+    // For Setting
+    Route::prefix('setting')->group(function () {
+        Route::get('/', [SettingController::class, 'index'])->name('settingForm');
     });
 });

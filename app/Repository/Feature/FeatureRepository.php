@@ -2,6 +2,7 @@
 
 namespace App\Repository\Feature;
 
+use App\Models\RoomSpecialFeature;
 use App\Models\SpecialFeature;
 use Exception;
 use App\Utility;
@@ -58,5 +59,17 @@ class FeatureRepository implements FeatureRepositoryInterface
         $paramObj   = SpecialFeature::find($id);
         $tempObj    = Utility::addDelete($paramObj);
         $tempObj->save();
+    }
+    public function getFeatureByRoomId(int $id)
+    {
+        $featureData = [];
+        $data = RoomSpecialFeature::select('special_feature_id')
+            ->where('room_id', $id)
+            ->whereNull('deleted_at')
+            ->get();
+        foreach ($data as $feature) {
+            array_push($featureData, $feature->special_feature_id);
+        }
+        return $featureData;
     }
 }

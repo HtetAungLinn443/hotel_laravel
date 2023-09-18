@@ -38,11 +38,14 @@
                                             </td>
                                             <td style="text-align: center;">
                                                 <a href="{{ route('featureEdit', $feature->id) }}"
-                                                    class="btn btn-sm btn-info">
+                                                    class="btn btn-sm btn-info"
+                                                    title="{{ route('featureEdit', $feature->id) }}">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
                                                 <a href="{{ route('featureDelete', $feature->id) }}"
-                                                    class="btn btn-sm btn-danger">
+                                                    class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Are you sure you went delete room special feature')"
+                                                    title="{{ route('featureDelete', $feature->id) }}">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </a>
                                             </td>

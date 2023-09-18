@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\BedType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Room extends Model
 {
@@ -25,8 +27,12 @@ class Room extends Model
         'deleted_by',
     ];
 
-    public function getViewNameByRoom()
+    public function getViewNameByRoom(): BelongsTo
     {
         return $this->belongsTo(View::class, 'view_id', 'id');
+    }
+    public function getBedNameByRoom(): BelongsTo
+    {
+        return $this->belongsTo(BedType::class, 'bed_type_id', 'id');
     }
 }

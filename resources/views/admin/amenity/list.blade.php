@@ -48,11 +48,14 @@
                                             </td>
                                             <td style="text-align: center;">
                                                 <a href="{{ route('amenityEdit', $amenity->id) }}"
-                                                    class="btn btn-sm btn-info">
+                                                    class="btn btn-sm btn-info"
+                                                    title="{{ route('amenityEdit', $amenity->id) }}">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
                                                 <a href="{{ route('amenityDelete', $amenity->id) }}"
-                                                    class="btn btn-sm btn-danger">
+                                                    class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Are you sure you went delete room amenity')"
+                                                    title="{{ route('amenityDelete', $amenity->id) }}">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </a>
                                             </td>

@@ -25,7 +25,7 @@ class RoomGalleryCreateRequest extends FormRequest
     {
         return [
             'room_id'   => 'required|integer',
-            'file'      => 'required|mimes:png,jpg,jpeg,git'
+            'file'      => 'required|mimes:png,jpg,jpeg,gif'
         ];
     }
     public function messages()

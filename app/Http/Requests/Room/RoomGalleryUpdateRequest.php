@@ -24,7 +24,16 @@ class RoomGalleryUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'room_id'   => 'required|integer',
+            'file'      => 'sometimes|mimes:png,jpg,jpeg,gif'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'room_id.required'  => 'Room Id is Required.',
+            'room_id.integer'   => 'Room Id must be Number.',
+            'file.mimes'        => 'Gallery Image must be png,jpg,jpeg,gif.'
         ];
     }
 }

@@ -38,14 +38,14 @@
                                                 {{ $view->name }}
                                             </td>
                                             <td>
-                                                {{ getRoomNameByView($view) }}
+                                                <span>{{ getRoomNameByView($view) }}</span>
                                             </td>
                                             <td style="text-align: center;">
                                                 <a href="{{ route('viewEdit', $view->id) }}" class="btn btn-sm btn-info">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
-                                                <a href="{{ route('viewDelete', $view->id) }}"
-                                                    class="btn btn-sm btn-danger">
+                                                <a href="{{ route('viewDelete', $view->id) }}" class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Are you sure you went delete room view')">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </a>
                                             </td>

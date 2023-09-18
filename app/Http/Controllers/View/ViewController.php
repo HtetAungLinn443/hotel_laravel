@@ -24,8 +24,7 @@ class ViewController extends Controller
     {
         try {
             $views = $this->repository->getViews();
-            $logMessage = "View Listing::";
-            Utility::saveDebugLog($logMessage);
+            Utility::saveDebugLog("View Listing");
             return view('admin.view.list', compact('views'));
         } catch (Exception $e) {
             Utility::saveErrorLog($e->getMessage());
@@ -46,9 +45,7 @@ class ViewController extends Controller
     {
         try {
             $result = $this->repository->viewCreated((array) $request->all());
-            $logMessage = "View Store::";
-            Utility::saveDebugLog($logMessage);
-
+            Utility::saveDebugLog("View Store::");
             if ($result['statusCode'] == 200) {
                 return to_route('viewLists')
                     ->with(['success_msg' => 'Room View Create Successfully!']);
@@ -58,7 +55,7 @@ class ViewController extends Controller
                 abort(500);
             }
         } catch (Exception $e) {
-            $e->getMessage();
+            Utility::saveErrorLog($e->getMessage());
             abort(500);
         }
     }
@@ -67,12 +64,10 @@ class ViewController extends Controller
     {
         try {
             $view_data = View::find($id);
-            $logMessage = "View Edit::";
-            Utility::saveDebugLog($logMessage);
-
+            Utility::saveDebugLog("View Edit::");
             return view('admin.view.form', compact('view_data'));
         } catch (Exception $e) {
-            $e->getMessage();
+            Utility::saveErrorLog($e->getMessage());
             abort(500);
         }
     }
@@ -81,9 +76,7 @@ class ViewController extends Controller
     {
         try {
             $result = $this->repository->viewUpdated((array) $request->all());
-            $logMessage = "View Update::";
-            Utility::saveDebugLog($logMessage);
-
+            Utility::saveDebugLog("View Update::");
             if ($result['statusCode'] == 200) {
                 return to_route('viewLists')
                     ->with(['success_msg' => 'Room View Update Successfully!']);
@@ -93,6 +86,7 @@ class ViewController extends Controller
                 abort(500);
             }
         } catch (Exception $e) {
+            Utility::saveErrorLog($e->getMessage());
             abort(500);
         }
     }
@@ -101,11 +95,10 @@ class ViewController extends Controller
     {
         try {
             $delete = $this->repository->viewDeleted((int) $id);
-            $logMessage = "View Deleted::";
-            Utility::saveDebugLog($logMessage);
-
+            Utility::saveDebugLog("View Deleted::");
             return redirect()->back()->with('success_msg', 'Room View Deleted!');
         } catch (Exception $e) {
+            Utility::saveErrorLog($e->getMessage());
             abort(500);
         }
     }
