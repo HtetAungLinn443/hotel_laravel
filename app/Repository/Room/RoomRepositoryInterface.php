@@ -9,4 +9,6 @@ interface RoomRepositoryInterface
     public function roomEdit(int $id);
     public function roomUpdated(array $data);
     public function roomDeleted(int $id);
+    public function getRandomRoom();
+    public function getRoomAmenity(int $id);
 }

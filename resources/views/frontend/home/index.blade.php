@@ -144,19 +144,18 @@
 
             <div class="row no-gutters">
 
-                @if ($result_row >= 1)
+                @if (count($rooms) >= 1)
                     @php
                         $counter = 0;
                     @endphp
 
-                    @foreach ($result as $row)
+                    @foreach ($rooms as $row)
                         @php
                             $id = $row['id'];
                             $thumb = $row['thumbnail_img'];
-                            $thumb_full_path = $base_url . 'assets/upload/' . $id . '/thumb/' . $thumb;
+                            $thumb_full_path = asset('assets/upload/' . $id . '/thumb/' . $thumb);
                             $price = $row['price_per_day'];
                             $name = $row['name'];
-                            $room_detail = $base_url . 'room/details/' . $id;
                             $counter++;
                             if ($counter < 3 || $counter > 4) {
                                 $class1 = '';
@@ -169,7 +168,8 @@
 
                         <div class="col-lg-6">
                             <div class="room-wrap d-md-flex ftco-animate">
-                                <a href="{{ $room_detail }}" title="{{ $name }}" class="img {{ $class1 }}"
+                                <a href="{{ route('userRoomDetails', $id) }}" title="{{ $name }}"
+                                    class="img {{ $class1 }}"
                                     style="background-image: url({{ $thumb_full_path }});"></a>
                                 <div class="half {{ $class2 }} d-flex align-items-center">
                                     <div class="text p-4 text-center">
@@ -177,11 +177,12 @@
                                                 class="ion-ios-star"></span><span class="ion-ios-star"></span><span
                                                 class="ion-ios-star"></span><span class="ion-ios-star"></span></p>
                                         <p class="mb-0"><span
-                                                class="price mr-1">{{ $price . '(' . $setting['price_unit'] . ')' }}</span>
+                                                class="price mr-1">{{ $price . '( ' . getSiteSetting()->price_unit . ' )' }}</span>
                                             <span class="per">per night</span>
                                         </p>
-                                        <h3 class="mb-3"><a href="{{ $room_detail }}">{{ $name }}</a></h3>
-                                        <p class="pt-1"><a href="{{ $room_detail }}"
+                                        <h3 class="mb-3"><a
+                                                href="{{ route('userRoomDetails', $id) }}">{{ $name }}</a></h3>
+                                        <p class="pt-1"><a href="{{ route('userRoomDetails', $id) }}"
                                                 class="btn-custom px-3 py-2 rounded">View Details <span
                                                     class="icon-long-arrow-right"></span></a></p>
                                     </div>

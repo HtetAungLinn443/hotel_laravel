@@ -191,4 +191,27 @@ class RoomRepository implements RoomRepositoryInterface
         RoomAmenity::where('room_id', $id)->delete();
         return true;
     }
+
+    public function getRandomRoom()
+    {
+        $rooms = Room::get();
+        return $rooms;
+    }
+    public function getRoomAmenity(int $id)
+    {
+        $returnObj = array();
+        $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+        try{
+            $data = RoomAmenity::select('room_amenities.name')
+                ->where('room_amenities.room_id', $id)
+                ->leftJoin('amenities'.'amenities.id','room_amenities.room_id')
+                ->whereNull('room_amenities.deleted_at')
+                ->whereNull('amenities.deleted_at')
+                ->get();
+            $returnObj['statusCode'] = ReturnMessage::OK;
+            return $data;
+        }catch(Exception $e){
+            $e->getMessages();
+        }
+    }
 }

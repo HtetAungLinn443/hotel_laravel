@@ -84,6 +84,7 @@ Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], functi
 });
 
 Route::get('/',[FrontendController::class,'index'])->name('userHome');
+Route::get('details/{id}',[FrontendController::class,'details'])->name('userRoomDetails');
 Route::get('/rooms',[FrontendController::class,'index'])->name('userRooms');
 Route::get('/about',[FrontendController::class,'index'])->name('userAbout');
 Route::get('/contact',[FrontendController::class,'index'])->name('userContact');
