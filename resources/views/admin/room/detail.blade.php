@@ -46,12 +46,26 @@
                                             {{ $room_data->price_per_day }} {{ getSiteSetting()->price_unit }}
                                         </span>
                                     </p>
+                                    <h3> Amenity</h3>
+                                    <ul>
+                                        @foreach ($amenities as $amenity)
+                                            <li style="font-size: 18px;" class="row">
+                                                <div class="col-6">
+                                                    {{ $amenity->name }}
+                                                </div>
+                                                <div class="col-6">
+                                                    (@if ($amenity->type == 0)
+                                                General
+                                                @elseif ($amenity->type == 1)
+                                                Bathroom
+                                                @else
+                                                Other
+                                            @endif)
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
 
-                                    @foreach ($amenity_by_room_id as $room_amenity)
-                                        <p style="font-size: 18px;">
-                                            {{ $room_amenity }}
-                                        </p>
-                                    @endforeach
                                 </div>
                                 <div class="col-md-4 mt-4 offset-2 text-dark">
                                     <p class="" style="font-size: 18px;">
@@ -72,11 +86,14 @@
                                             {{ $room_data->extra_bed_price_per_day }} {{ getSiteSetting()->price_unit }}
                                         </span>
                                     </p>
-                                    @foreach ($feature_by_room_id as $room_feature)
-                                        <p style="font-size: 18px;">
-                                            {{ $room_feature }}
-                                        </p>
+                                    <h3>Special Feature</h3>
+                                    <ul >
+                                        @foreach ($features as $feature)
+                                        <li style="font-size: 18px;">
+                                            {{ $feature->name }}
+                                        </li>
                                     @endforeach
+                                    </ul>
                                 </div>
                             </div>
                         </div>

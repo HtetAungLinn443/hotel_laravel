@@ -11,4 +11,5 @@ interface RoomRepositoryInterface
     public function roomDeleted(int $id);
     public function getRandomRoom();
     public function getRoomAmenity(int $id);
+    public function getRoomFeature(int $id);
 }

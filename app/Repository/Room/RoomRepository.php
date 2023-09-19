@@ -72,6 +72,7 @@ class RoomRepository implements RoomRepositoryInterface
             self::roomAmenityStore($data['room_amenity'], $tempObj->id);
             DB::commit();
             $returnObj['statusCode']    = ReturnMessage::OK;
+            $returnObj['insertRoomId'] = $tempObj->id;
             return $returnObj;
         } catch (Exception $e) {
             DB::rollback();
@@ -194,24 +195,47 @@ class RoomRepository implements RoomRepositoryInterface
 
     public function getRandomRoom()
     {
-        $rooms = Room::get();
-        return $rooms;
+        try{
+            $rooms = Room::select('id','name','price_per_day','thumbnail_img')
+                ->whereNull('deleted_at')
+                ->inRandomOrder()
+                ->Limit(6)
+                ->get();
+            return $rooms;
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
     }
     public function getRoomAmenity(int $id)
     {
-        $returnObj = array();
-        $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
-        try{
-            $data = RoomAmenity::select('room_amenities.name')
+        try {
+            $data = RoomAmenity::select('amenities.name', 'amenities.type')
                 ->where('room_amenities.room_id', $id)
-                ->leftJoin('amenities'.'amenities.id','room_amenities.room_id')
+                ->leftJoin('amenities', 'amenities.id', 'room_amenities.amenity_id')
                 ->whereNull('room_amenities.deleted_at')
                 ->whereNull('amenities.deleted_at')
+                ->orderBy('amenities.type', 'asc')
+                ->orderBy('room_amenities.id', 'asc')
                 ->get();
-            $returnObj['statusCode'] = ReturnMessage::OK;
             return $data;
-        }catch(Exception $e){
-            $e->getMessages();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getRoomFeature(int $id)
+    {
+        try {
+            $data = RoomSpecialFeature::select('special_features.name')
+            ->where('room_special_features.room_id', $id)
+            ->leftJoin('special_features', 'special_features.id', 'room_special_features.special_feature_id')
+            ->whereNull('room_special_features.deleted_at')
+            ->whereNull('special_features.deleted_at')
+            ->orderBy('room_special_features.id')
+            ->get();
+            return $data;
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
     }
 }

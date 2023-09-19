@@ -43,14 +43,14 @@
                             class="nav-link {{ Request::is('/') ? 'active' : '' }}">Home</a>
                     </li>
                     <li class="nav-item"><a href="{{ route('userRooms') }}"
-                            class="nav-link {{ Request::is('/rooms') ? 'active' : '' }}">Our
+                            class="nav-link {{ Request::is('rooms') ? 'active' : '' }}">Our
                             Rooms</a>
                     </li>
                     <li class="nav-item "><a href="{{ route('userAbout') }}"
-                            class="nav-link {{ Request::is('/about') ? 'active' : '' }}">About Us</a>
+                            class="nav-link {{ Request::is('about') ? 'active' : '' }}">About Us</a>
                     </li>
                     <li class="nav-item "><a href="{{ route('userContact') }}"
-                            class="nav-link {{ Request::is('/contact') ? 'active' : '' }}">Contact</a>
+                            class="nav-link {{ Request::is('contact') ? 'active' : '' }}">Contact</a>
                     </li>
                 </ul>
             </div>

@@ -1,6 +1,14 @@
 @extends('frontend.layouts.master')
 
-@section('title', 'Room Details Page')
+@section('title', (getSiteSetting() !== null ? getSiteSetting()->name :'').'::Room Details Page')
+@section('title_1')
+<p class="breadcrumbs mb-2"><span class="mr-2"><a href="">Home</a></span></p>
+<h1 class="mb-4 bread">Rooms Details</h1>
+@endsection
+@section('title_2')
+<p class="breadcrumbs mb-2"><span class="mr-2"><a href="#">Home</a></span> <span class="mr-2"><a href="#">Rooms</a></span> <span>Rooms Single</span></p>
+<h1 class="mb-4 bread">Rooms Details</h1>
+@endsection
 @section('content')
     <section class="ftco-section">
         <div class="container">
@@ -48,7 +56,7 @@
                                 {{ $room->description }}
                             </p>
                             <div class="">
-                                <a href="" type="submit" class="btn btn-primary py-3 px-5">Reserve</a>
+                                <a href="{{ route('roomReserve',$room->id) }}" title="Reserve" class="btn btn-primary py-3 px-5">Reserve</a>
                             </div>
                         </div>
                     </div>
@@ -58,20 +66,32 @@
                     <div class="sidebar-box ftco-animate">
                         <div class="categories">
                             <h3>Amenities</h3>
-                            {{-- for loop --}}
+                            @foreach ($amenities as $amenity)
+                                <li><a href="#" title="{{ $amenity->name }}">{{ $amenity->name }}
+                                        <span>(@if ($amenity->type == 0)
+                                                General
+                                                @elseif ($amenity->type == 1)
+                                                Bathroom
+                                                @else
+                                                Other
+                                            @endif)
+                                        </span>
+                                    </a>
+                                </li>
+                            @endforeach
 
-                            <li><a href="#">name
-                                    <span>(type)</span></a></li>
                         </div>
                     </div>
 
                     <div class="sidebar-box ftco-animate">
                         <h3>Specail Feature</h3>
+                        @foreach ($features as $feature)
                         <div class=" mb-4 d-flex">
                             <div class="text">
-                                <h3 class="heading"><a href="#">feature name </a></h3>
+                                <h3 class="heading"><a href="#" title="{{ $feature->name }}">{{ $feature->name }}</a></h3>
                             </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

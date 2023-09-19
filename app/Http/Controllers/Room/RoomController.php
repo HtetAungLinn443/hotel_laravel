@@ -4,14 +4,9 @@ namespace App\Http\Controllers\Room;
 
 use Exception;
 use App\Utility;
-use App\Models\SpecialFeature;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Repository\Bed\BedRepository;
-use App\Repository\View\ViewRepository;
 use App\Http\Requests\Room\RoomCreateRequest;
-use App\Repository\Amenity\AmenityRepository;
-use App\Repository\Feature\FeatureRepository;
 use App\Repository\Bed\BedRepositoryInterface;
 use App\Repository\Room\RoomRepositoryInterface;
 use App\Repository\View\ViewRepositoryInterface;
@@ -169,14 +164,14 @@ class RoomController extends Controller
     {
         try {
             $room_data          = $this->repository->roomEdit((int) $id);
-            $amenity_by_room_id = $this->amenityRepository->getAmenityByRoomId((int) $id);
-            $feature_by_room_id = $this->featureRepository->getFeatureByRoomId((int) $id);
+            $amenities          = $this->repository->getRoomAmenity((int) $id);
+            $features           = $this->repository->getRoomFeature((int) $id);
             $room_galleries     = $this->galleryRepository->getRoomGallerires((int) $id);
             Utility::saveDebugLog('Room Details::');
             return view('admin.room.detail', compact(
                 'room_data',
-                'amenity_by_room_id',
-                'feature_by_room_id',
+                'amenities',
+                'features',
                 'room_galleries'
             ));
         } catch (Exception $e) {
