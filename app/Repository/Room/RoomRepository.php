@@ -195,14 +195,14 @@ class RoomRepository implements RoomRepositoryInterface
 
     public function getRandomRoom()
     {
-        try{
-            $rooms = Room::select('id','name','price_per_day','thumbnail_img')
+        try {
+            $rooms = Room::select('id', 'name', 'price_per_day', 'thumbnail_img')
                 ->whereNull('deleted_at')
                 ->inRandomOrder()
                 ->Limit(6)
                 ->get();
             return $rooms;
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }
@@ -227,15 +227,16 @@ class RoomRepository implements RoomRepositoryInterface
     {
         try {
             $data = RoomSpecialFeature::select('special_features.name')
-            ->where('room_special_features.room_id', $id)
-            ->leftJoin('special_features', 'special_features.id', 'room_special_features.special_feature_id')
-            ->whereNull('room_special_features.deleted_at')
-            ->whereNull('special_features.deleted_at')
-            ->orderBy('room_special_features.id')
-            ->get();
+                ->where('room_special_features.room_id', $id)
+                ->leftJoin('special_features', 'special_features.id', 'room_special_features.special_feature_id')
+                ->whereNull('room_special_features.deleted_at')
+                ->whereNull('special_features.deleted_at')
+                ->orderBy('room_special_features.id')
+                ->get();
             return $data;
         } catch (Exception $e) {
             return $e->getMessage();
         }
     }
+
 }

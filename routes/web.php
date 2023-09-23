@@ -83,9 +83,10 @@ Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], functi
     });
 });
 
-Route::get('/', [FrontendController::class,'index'])->name('userHome');
-Route::get('/details/{id}', [FrontendController::class,'details'])->name('userRoomDetails');
-Route::get('/rooms', [FrontendController::class,'getRooms'])->name('userRooms');
-Route::get('/about', [FrontendController::class,'about'])->name('userAbout');
-Route::get('/contact', [FrontendController::class,'contact'])->name('userContact');
-Route::get('/room/reserve/{id}',[FrontendController::class,'roomReserve'])->name('roomReserve');
+Route::get('/', [FrontendController::class, 'index'])->name('userHome');
+Route::get('/details/{id}', [FrontendController::class, 'details'])->name('userRoomDetails');
+Route::get('/rooms', [FrontendController::class, 'getRooms'])->name('userRooms');
+Route::get('/about', [FrontendController::class, 'about'])->name('userAbout');
+Route::get('/contact', [FrontendController::class, 'contact'])->name('userContact');
+Route::get('/room/reserve/{id}', [FrontendController::class, 'roomReserve'])->name('roomReserve');
+Route::post('/room/reserve', [FrontendController::class, 'roomBooking'])->name('roomBooking');

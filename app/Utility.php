@@ -12,10 +12,10 @@ class Utility
     public static function addCreated($paramObj)
     {
         $today_date = date('Y-m-d H:i:s');
-        $user_id = Auth::guard()->user()->id;
         $paramObj->created_at = $today_date;
         $paramObj->updated_at = $today_date;
         if (Auth::guard()->check()) {
+            $user_id = Auth::guard()->user()->id;
             $paramObj->created_by = $user_id;
             $paramObj->updated_by = $user_id;
         }

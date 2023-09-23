@@ -8,14 +8,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Repository\Room\RoomRepositoryInterface;
+use App\Http\Requests\Frontend\ReserveCreateRequest;
+use App\Repository\Reservation\ReservationRepositoryInterface;
 
 class FrontendController extends Controller
 {
     private RoomRepositoryInterface $repository;
-    public function __construct(RoomRepositoryInterface $repository)
-    {
+    private ReservationRepositoryInterface $reservationRepository;
+    public function __construct(
+        RoomRepositoryInterface $repository,
+        ReservationRepositoryInterface $reservationRepository
+    ) {
         DB::connection()->enableQueryLog();
-        $this->repository = $repository;
+        $this->repository               = $repository;
+        $this->reservationRepository    = $reservationRepository;
     }
     public function index()
     {
@@ -50,7 +56,7 @@ class FrontendController extends Controller
     {
         try {
             $rooms = $this->repository->getRooms();
-            return view('frontend.room.index',compact('rooms'));
+            return view('frontend.room.index', compact('rooms'));
         } catch (Exception $e) {
             Utility::saveErrorLog($e->getMessage());
             abort(500);
@@ -66,8 +72,14 @@ class FrontendController extends Controller
         return view('frontend.contact.index');
     }
 
-    public function roomReserve()
+    public function roomReserve($id)
     {
-        return view('');
+        $room = $this->repository->roomEdit((int) $id);
+        return view('frontend.room.reserve', compact('room'));
+    }
+    public function roomBooking(ReserveCreateRequest $request)
+    {
+        $result = $this->reservationRepository->store((array) $request->all());
+        return $result;
     }
 }
