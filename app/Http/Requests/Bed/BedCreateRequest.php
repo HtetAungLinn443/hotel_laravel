@@ -18,7 +18,7 @@ class BedCreateRequest extends FormRequest
             'name' => [
                 'required',
                 'min:5',
-                'max:20',
+                'max:30',
                 Rule::unique('bed_types')->where(function ($query) {
                     return $query
                         ->where('name', $this->name)
@@ -32,7 +32,7 @@ class BedCreateRequest extends FormRequest
         return [
             'name.required' => 'Room bed Name is require.',
             'name.min' => 'Room bed name must be at least 5 characters.',
-            'name.max' => 'Room bed name must not be greater than 20 characters.',
+            'name.max' => 'Room bed name must not be greater than 30 characters.',
             'name.unique' => 'This Room bed name has already been taken.'
         ];
     }

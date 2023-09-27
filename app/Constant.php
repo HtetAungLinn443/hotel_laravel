@@ -4,12 +4,13 @@ namespace App;
 
 class Constant
 {
-    const AMENITY_GENERAL   = 0;
-    const AMENITY_BATHROOM  = 1;
-    const AMENITY_OTHER     = 2;
-    const THUMB_WIDTH       = 379;
-    const THUMB_HEIGHT      = 360;
-    const UPLOAD_WIDTH      = 700;
-    const UPLOAD_HEIGHT     = 500;
-    const WATERMARK_PATH    = 'assets/images/wartermark.png';
+    public const AMENITY_GENERAL   = 0;
+    public const AMENITY_BATHROOM  = 1;
+    public const AMENITY_OTHER     = 2;
+    public const THUMB_WIDTH       = 379;
+    public const THUMB_HEIGHT      = 360;
+    public const UPLOAD_WIDTH      = 700;
+    public const UPLOAD_HEIGHT     = 500;
+    public const WATERMARK_PATH    = 'assets/images/wartermark.png';
+    public const BOOKING_AVAILABLE = 1;
 }

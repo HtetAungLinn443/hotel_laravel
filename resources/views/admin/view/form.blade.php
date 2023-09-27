@@ -76,8 +76,8 @@
                     $("#viewName_error").show();
                     error = true;
                 }
-                if (view_name_length > 20 && view_name != '') {
-                    $("#viewName_error").text('Hotel room view name must be less then twenty.');
+                if (view_name_length > 30 && view_name != '') {
+                    $("#viewName_error").text('Hotel room view name must be less then 30.');
                     $("#viewName_error").show();
                     error = true;
                 }

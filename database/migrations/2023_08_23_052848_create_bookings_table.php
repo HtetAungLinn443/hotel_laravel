@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->string('price', 80);
             $table->string('check_in_date', 100);
             $table->string('check_out_date', 100);
+            $table->tinyInteger('status')->default(0);
             $table->integer('created_by');
             $table->integer('updated_by');
             $table->integer('deleted_by')->nullable();

@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\TestController;
 use App\Http\Controllers\Bed\BedController;
 use App\Http\Controllers\Room\RoomController;
 use App\Http\Controllers\View\ViewController;
@@ -88,5 +87,7 @@ Route::get('/details/{id}', [FrontendController::class, 'details'])->name('userR
 Route::get('/rooms', [FrontendController::class, 'getRooms'])->name('userRooms');
 Route::get('/about', [FrontendController::class, 'about'])->name('userAbout');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('userContact');
-Route::get('/room/reserve/{id}', [FrontendController::class, 'roomReserve'])->name('roomReserve');
-Route::post('/room/reserve', [FrontendController::class, 'roomBooking'])->name('roomBooking');
+Route::prefix('room')->group(function () {
+    Route::get('/reserve/{id}', [FrontendController::class, 'roomReserve'])->name('roomReserve');
+    Route::post('/reserve', [FrontendController::class, 'roomBooking'])->name('roomBooking');
+});

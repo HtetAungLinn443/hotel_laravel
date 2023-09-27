@@ -13,7 +13,12 @@
     <section class="ftco-section contact-section bg-light">
         @if (isset($room))
             <div class="container">
-                <h1>Room Name</h1>
+                <h1>{{ $room->name }}</h1>
+                @if(session()->has('error_msg'))
+                <div class="alert alert-warning"> 
+                    <spam>{{ session('error_msg') }}</spam>
+                </div>
+                @endif
                 <div class="row block-9">
                     <div class="col-md-6 order-md-last d-flex">
                         <form action="{{ route('roomBooking') }}" class="bg-white p-5 contact-form" method="POST">
@@ -74,8 +79,6 @@
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="roomId" value="{{ $room->id }}">
-                                <input type="hidden" name="total_price" class="htotal_price"
-                                    value="{{ $room->price_per_day }}">
                                 <input type="submit" id="submit_btn" value="Booking" class="btn btn-primary py-3 px-5">
                             </div>
                         </form>
@@ -140,7 +143,7 @@
                 var checkin_val = $("#checkIn").val();
                 var checkout_val = $("#checkOut").val();
                 if (checkin_val != '' && checkout_val != '') {
-
+                    
                 }
                 if (is_extra_bed) {
                     var total_price = parseInt(room_price) + parseInt(extra_bed_price);

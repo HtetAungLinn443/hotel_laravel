@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Frontend;
 
+use App\Rules\CheckBookingAvailability;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\CheckInDateBeforeCheckOutDate;
 
 class ReserveCreateRequest extends FormRequest
 {
@@ -26,7 +28,16 @@ class ReserveCreateRequest extends FormRequest
         return [
             'roomId'        => 'required|integer|exists:rooms,id',
             'checkIn'       => 'required|date',
-            'checkOut'      => 'required|date',
+            'checkOut'      => [
+                'required',
+                'date',
+                new CheckInDateBeforeCheckOutDate(),
+                new CheckBookingAvailability(
+                    request('roomId'),
+                    request('checkIn'),
+                    request('checkOut'),
+                ),
+            ],
             'userName'      => 'required',
             'email'         => 'required|email',
             'phone'         => 'required',

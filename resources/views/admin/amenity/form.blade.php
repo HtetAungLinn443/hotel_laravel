@@ -129,8 +129,8 @@
                     $("#amenityName_error").show();
                     error = true;
                 }
-                if (amenity_name_length > 20 && amenity_name != '') {
-                    $("#amenityName_error").text('Hotel room amenity name must be less then twenty.');
+                if (amenity_name_length > 40 && amenity_name != '') {
+                    $("#amenityName_error").text('Hotel room amenity name must be less then 40.');
                     $("#amenityName_error").show();
                     error = true;
                 }

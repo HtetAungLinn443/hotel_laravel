@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Frontend;
 
 use Exception;
 use App\Utility;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Repository\Room\RoomRepositoryInterface;
@@ -56,6 +55,7 @@ class FrontendController extends Controller
     {
         try {
             $rooms = $this->repository->getRooms();
+            Utility::saveDebugLog('Frontend Rooms::');
             return view('frontend.room.index', compact('rooms'));
         } catch (Exception $e) {
             Utility::saveErrorLog($e->getMessage());
@@ -77,9 +77,20 @@ class FrontendController extends Controller
         $room = $this->repository->roomEdit((int) $id);
         return view('frontend.room.reserve', compact('room'));
     }
+
     public function roomBooking(ReserveCreateRequest $request)
     {
-        $result = $this->reservationRepository->store((array) $request->all());
-        return $result;
+        try {
+            $result = $this->reservationRepository->store((array) $request->all());
+            Utility::saveDebugLog('Frontend Reservation Store::');
+            if ($result == 200) {
+                return to_route('userHome')->with(['success_msg' => 'Your Booking Successfully! Please Wait to Administrator Contact.']);
+            } else {
+                return back()->withErrors(['error_msg' => 'Your Booking Fail! Please Try Again.']);
+            }
+        } catch (Exception $e) {
+            Utility::saveErrorLog($e->getMessage());
+            abort(500);
+        }
     }
 }

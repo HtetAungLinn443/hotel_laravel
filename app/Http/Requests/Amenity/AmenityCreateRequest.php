@@ -36,7 +36,7 @@ class AmenityCreateRequest extends FormRequest
         return [
             'name.required' => 'Room bed Name is require.',
             'name.min' => 'Room bed name must be at least three characters.',
-            'name.max' => 'Room bed name must not be greater than 20 characters.',
+            'name.max' => 'Room bed name must not be greater than 40 characters.',
             'name.unique' => 'This Room bed name has already been taken.',
             'type.required' => 'Please choose room amenity type.',
         ];

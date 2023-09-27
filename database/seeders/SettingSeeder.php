@@ -27,7 +27,7 @@ class SettingSeeder extends Seeder
             'size_unit' => 'mm²',
             'occupancy' => 'People',
             'price_unit' => 'Kyats',
-            'logo_path' => 'test.png',
+            'logo_path' => 'img.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
             'created_by' => '1',

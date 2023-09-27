@@ -86,8 +86,8 @@
                     $("#bedName_error").show();
                     error = true;
                 }
-                if (bed_name_length > 20 && bed_name != '') {
-                    $("#bedName_error").text('Hotel room bed name must be less then twenty.');
+                if (bed_name_length > 30 && bed_name != '') {
+                    $("#bedName_error").text('Hotel room bed name must be less then 30.');
                     $("#bedName_error").show();
                     error = true;
                 }

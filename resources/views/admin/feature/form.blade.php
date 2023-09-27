@@ -76,8 +76,8 @@
                     $("#featureName_error").show();
                     error = true;
                 }
-                if (feature_name_length > 100 && feature_name != '') {
-                    $("#featureName_error").text('Hotel room feature name must be less then 100.');
+                if (feature_name_length > 200 && feature_name != '') {
+                    $("#featureName_error").text('Hotel room feature name must be less then 200.');
                     $("#featureName_error").show();
                     error = true;
                 }

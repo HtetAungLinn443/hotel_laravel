@@ -18,7 +18,7 @@ class FeatureUpdateRequest extends FormRequest
             'name' => [
                 'required',
                 'min:5',
-                'max:100',
+                'max:200',
                 Rule::unique('special_features')->where(function ($query) {
                     return $query
                         ->where('name', $this->name)
@@ -33,7 +33,7 @@ class FeatureUpdateRequest extends FormRequest
         return [
             'name.required' => 'Room special feature name is require.',
             'name.min' => 'Room special feature name must be at least 5 characters.',
-            'name.max' => 'Room special feature name must not be greater than 100 characters.',
+            'name.max' => 'Room special feature name must not be greater than 200 characters.',
             'name.unique' => 'This room special feature name has already been taken.'
         ];
     }
