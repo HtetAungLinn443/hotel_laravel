@@ -26,6 +26,10 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}">
+    <!-- PNotify -->
+    <link href="{{ asset('assets/backend/css/pnotify/pnotify.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/backend/css/pnotify/pnotify.buttons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/backend/css/pnotify/pnotify.nonblock.css') }}" rel="stylesheet">
 </head>
 
 <body>

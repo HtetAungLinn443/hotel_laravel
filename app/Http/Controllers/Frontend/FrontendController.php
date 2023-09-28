@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Repository\Room\RoomRepositoryInterface;
 use App\Http\Requests\Frontend\ReserveCreateRequest;
 use App\Repository\Reservation\ReservationRepositoryInterface;
+use App\ReturnMessage;
 
 class FrontendController extends Controller
 {
@@ -83,10 +84,11 @@ class FrontendController extends Controller
         try {
             $result = $this->reservationRepository->store((array) $request->all());
             Utility::saveDebugLog('Frontend Reservation Store::');
-            if ($result == 200) {
+
+            if ($result['statusCode'] === ReturnMessage::OK) {
                 return to_route('userHome')->with(['success_msg' => 'Your Booking Successfully! Please Wait to Administrator Contact.']);
             } else {
-                return back()->withErrors(['error_msg' => 'Your Booking Fail! Please Try Again.']);
+                return back()->with(['error_msg' => 'Your Booking Fail! Please Try Again.']);
             }
         } catch (Exception $e) {
             Utility::saveErrorLog($e->getMessage());

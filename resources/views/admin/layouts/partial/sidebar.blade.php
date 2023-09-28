@@ -103,8 +103,7 @@
                                     <a><i class="fa-solid fa-circle-plus"></i> Reservation<span
                                             class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="a" title="">Create</a></li>
-                                        <li><a href="b" title="">Listing</a></li>
+                                        <li><a href="{{ route('bookingLists') }}" title="">Listing</a></li>
                                     </ul>
                                 </li>
                                 <li>

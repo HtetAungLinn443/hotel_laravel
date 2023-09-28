@@ -14,10 +14,10 @@
         @if (isset($room))
             <div class="container">
                 <h1>{{ $room->name }}</h1>
-                @if(session()->has('error_msg'))
-                <div class="alert alert-warning"> 
-                    <spam>{{ session('error_msg') }}</spam>
-                </div>
+                @if (session()->has('error_msg'))
+                    <div class="alert alert-warning">
+                        <span>{{ session('error_msg') }}</span>
+                    </div>
                 @endif
                 <div class="row block-9">
                     <div class="col-md-6 order-md-last d-flex">
@@ -143,7 +143,7 @@
                 var checkin_val = $("#checkIn").val();
                 var checkout_val = $("#checkOut").val();
                 if (checkin_val != '' && checkout_val != '') {
-                    
+
                 }
                 if (is_extra_bed) {
                     var total_price = parseInt(room_price) + parseInt(extra_bed_price);

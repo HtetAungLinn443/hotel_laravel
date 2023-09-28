@@ -92,7 +92,33 @@
 <script src="{{ asset('assets/frontend/js/jquery.ui.js') }}"></script>
 <script src="{{ asset('assets/frontend/js/scrollax.min.js') }}"></script>
 <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
+<!-- PNotify -->
+<script src="{{ asset('assets/backend/js/pnotify/pnotify.js') }}"></script>
+<script src="{{ asset('assets/backend/js/pnotify/pnotify.buttons.js') }}"></script>
+<script src="{{ asset('assets/backend/js/pnotify/pnotify.nonblock.js') }}"></script>
+<script src="{{ asset('assets/backend/js/validation/jquery.validate.js') }}"></script>
 @yield('script')
+@if (session()->has('success_msg'))
+    <script>
+        new PNotify({
+        title: 'Success!',
+        text: "{{ session()->get('success_msg') }}",
+        type: 'success',
+        styling: 'bootstrap3'
+        })
+    </script>
+@endif
+
+@if (session()->has('error_msg'))
+    <script>
+        new PNotify({
+            title: 'Error!',
+            text: "{{ session()->get('error_msg') }}",
+            type: 'error',
+            styling: 'bootstrap3'
+        })
+    </script>
+@endif
 </body>
 
 </html>

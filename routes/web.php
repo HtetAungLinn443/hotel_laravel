@@ -7,6 +7,7 @@ use App\Http\Controllers\Room\RoomController;
 use App\Http\Controllers\View\ViewController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Amenity\AmenityController;
+use App\Http\Controllers\Booking\BookingController;
 use App\Http\Controllers\Feature\FeatureController;
 use App\Http\Controllers\Setting\SettingController;
 use App\Http\Controllers\Frontend\FrontendController;
@@ -73,6 +74,13 @@ Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], functi
             Route::get('edit/{id}', [RoomController::class, 'roomGalleryEdit'])->name('roomGalleryEdit');
             Route::post('update', [RoomController::class, 'roomGalleryUpdate'])->name('roomGalleryUpdate');
             Route::get('delete/{id}', [RoomController::class, 'roomGalleryDelete'])->name('roomGalleryDelete');
+        });
+
+        Route::prefix('reservation')->group(function () {
+            Route::get('/', [BookingController::class, 'bookingLists'])->name('bookingLists');
+            Route::get('edit/{id}', [BookingController::class, 'bookingEdit'])->name('bookingEdit');
+            Route::post('update', [BookingController::class, 'bookingUpdate'])->name('bookingUpdate');
+            Route::get('delete/{id}', [BookingController::class, 'bookingDelete'])->name('bookingDelete');
         });
     });
 

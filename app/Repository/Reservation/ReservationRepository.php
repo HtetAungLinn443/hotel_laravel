@@ -42,7 +42,7 @@ class ReservationRepository implements ReservationRepositoryInterface
             $paramObj->is_extra_bed     = $isExtraBed;
             $paramObj->price            = $totalPrice;
             $paramObj->check_in_date    = $checkIn->format('Y-m-d');
-            $paramObj->check_out_date   = $checkOut;
+            $paramObj->check_out_date   = $checkOut->format('Y-m-d');
             $tempObj                    = Utility::addCreated($paramObj);
             $tempObj->save();
             DB::commit();
@@ -78,5 +78,24 @@ class ReservationRepository implements ReservationRepositoryInterface
             $customerId = $customer->id;
         }
         return $customerId;
+    }
+
+    // admin booking list
+    public function getBookingLists()
+    {
+        $results = Booking::select(
+            'id',
+            'room_id',
+            'customer_id',
+            'is_extra_bed',
+            'price',
+            'check_in_date',
+            'check_out_date',
+            'status'
+        )->whereNull('deleted_at')
+            ->orderBy('status', 'desc')
+            ->orderBy('created_at')
+            ->get();
+        return $results;
     }
 }
