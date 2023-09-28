@@ -2,15 +2,16 @@
 
 namespace App\Repository\Reservation;
 
-use App\Models\Booking;
 use Exception;
 use App\Utility;
+use App\Constant;
+use Carbon\Carbon;
 use App\Models\Room;
 use App\ReturnMessage;
+use App\Models\Booking;
 use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
 use App\Repository\Reservation\ReservationRepositoryInterface;
-use Carbon\Carbon;
 
 class ReservationRepository implements ReservationRepositoryInterface
 {
@@ -95,7 +96,36 @@ class ReservationRepository implements ReservationRepositoryInterface
         )->whereNull('deleted_at')
             ->orderBy('status', 'desc')
             ->orderBy('created_at')
-            ->get();
+            ->paginate(Constant::PAGE_LIMIT);
         return $results;
+    }
+
+    public function bookingConfirm(int $id)
+    {
+        $booking            = Booking::find($id);
+        $room_id            = $booking->room_id;
+        $check_in_date      = $booking->check_in_date;
+        $check_out_date     = $booking->check_out_date;
+
+        $check_in_cnt = Booking::where('check_in_date', '<', $check_in_date)
+            ->where('check_out_date', '>', $check_in_date)
+            ->where('status', Constant::BOOKING_AVAILABLE)
+            ->where('room_id', $room_id)
+            ->whereNull('deleted_at')
+            ->count();
+        $check_out_cnt = Booking::where('check_in_date', '<', $check_out_date)
+            ->where('check_out_date', '>', $check_out_date)
+            ->where('status', Constant::BOOKING_AVAILABLE)
+            ->where('room_id', $room_id)
+            ->whereNull('deleted_at')
+            ->count();
+        if ($check_in_cnt === 0 && $check_out_cnt === 0 ) {
+            $booking->status = Constant::BOOKING_AVAILABLE;
+            $booking->save();
+            return true;
+        } else {
+            return false;
+        }
+        
     }
 }

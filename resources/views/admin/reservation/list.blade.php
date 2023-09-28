@@ -14,26 +14,35 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 ">
                     <div class="x_panel">
-                        <a href="{{ route('featureCreate') }}" class="btn btn-info ">Create View</a>
                         <div class="x_content">
                             <br />
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
 
                             <table id="" class="table table-striped table-bordered dt-responsive nowrap"
                                 cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th class="">ID</th>
+                                        <th class="text-center">ID</th>
                                         <th class="">CheckIn Date</th>
                                         <th class="">CheckOut Date</th>
                                         <th class="">Room</th>
                                         <th class="">Customer Name</th>
+                                        <th class="">Status</th>
                                         <th class="col-2 text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($lists as $list)
                                         <tr>
-                                            <td>
+                                            <td class="text-center">
                                                 {{ $list->id }}
                                             </td>
                                             <td>
@@ -48,21 +57,34 @@
                                             <td>
                                                 {{ $list->getCustomerById->name }}
                                             </td>
+                                            <td>
+                                                @if ($list->status == 0)
+                                                    <span class="badge badge-primary">Pending</span>
+                                                @else
+                                                    <span class="badge badge-success">Confirm</span>
+                                                @endif
+                                            </td>
                                             <td style="text-align: center;">
-                                                <a href="" class="btn btn-sm btn-info" title="">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                </a>
+                                                @if ($list->status == 0)
+                                                    <a href="{{ route('bookingConfirm', $list->id) }}"
+                                                        onclick="return confirm('Are you sure you went to confirm booking')"
+                                                        class="btn btn-sm btn-info" title="Confirm Reservation">
+                                                        Confirm
+                                                    </a>
+                                                @endif
                                                 <a href="" class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Are you sure you went delete room special feature')"
+                                                    onclick="return confirm('Are you sure you went to reject this booking')"
                                                     title="">
-                                                    <i class="fa-solid fa-trash"></i>
+                                                    Reject
                                                 </a>
                                             </td>
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
+                            <div class="pagination">
+                                {{ $lists->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>

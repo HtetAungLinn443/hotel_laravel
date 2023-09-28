@@ -75,13 +75,13 @@ Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], functi
             Route::post('update', [RoomController::class, 'roomGalleryUpdate'])->name('roomGalleryUpdate');
             Route::get('delete/{id}', [RoomController::class, 'roomGalleryDelete'])->name('roomGalleryDelete');
         });
+    });
 
-        Route::prefix('reservation')->group(function () {
-            Route::get('/', [BookingController::class, 'bookingLists'])->name('bookingLists');
-            Route::get('edit/{id}', [BookingController::class, 'bookingEdit'])->name('bookingEdit');
-            Route::post('update', [BookingController::class, 'bookingUpdate'])->name('bookingUpdate');
-            Route::get('delete/{id}', [BookingController::class, 'bookingDelete'])->name('bookingDelete');
-        });
+    // For Room Reservation
+    Route::prefix('reservation')->group(function () {
+        Route::get('/', [BookingController::class, 'bookingLists'])->name('bookingLists');
+        Route::get('confirm/{id}', [BookingController::class, 'bookingConfirm'])->name('bookingConfirm');
+        Route::get('delete/{id}', [BookingController::class, 'bookingDelete'])->name('bookingDelete');
     });
 
     // For Setting
