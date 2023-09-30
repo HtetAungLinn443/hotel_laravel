@@ -30,7 +30,7 @@ class SiteSettingRepository implements SiteSettingRepositoryInterface
                 $paramObj->logo_path    = $uniqueName;
             }
             $tmpObj = Utility::addUpdate($paramObj);
-            $tmpObj->save;
+            $tmpObj->save();
             if (array_key_exists('file', $data)) {
                 $destination = public_path('assets/images');
                 if (!file_exists($destination)) {

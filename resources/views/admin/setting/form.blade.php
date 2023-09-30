@@ -179,10 +179,10 @@
     <script src="{{ asset('assets/backend/js/pages/room_create_update.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#check_in').datetimepicker({
+            $('#check_in_time').datetimepicker({
                 format: 'hh:mm A'
             });
-            $('#check_out').datetimepicker({
+            $('#check_out_time').datetimepicker({
                 format: 'hh:mm A'
             });
         })
