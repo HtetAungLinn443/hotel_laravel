@@ -13,5 +13,5 @@ class Constant
     public const UPLOAD_HEIGHT     = 500;
     public const WATERMARK_PATH    = 'assets/images/wartermark.png';
     public const BOOKING_AVAILABLE = 1;
-    public const PAGE_LIMIT = 10;
+    public const PAGE_LIMIT = 3;
 }

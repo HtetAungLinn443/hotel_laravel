@@ -72,7 +72,8 @@
                                                         Confirm
                                                     </a>
                                                 @endif
-                                                <a href="" class="btn btn-sm btn-danger"
+                                                <a href="{{ route('bookingCancel', $list->id) }}"
+                                                    class="btn btn-sm btn-danger"
                                                     onclick="return confirm('Are you sure you went to reject this booking')"
                                                     title="">
                                                     Reject

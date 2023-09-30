@@ -81,7 +81,7 @@ Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], functi
     Route::prefix('reservation')->group(function () {
         Route::get('/', [BookingController::class, 'bookingLists'])->name('bookingLists');
         Route::get('confirm/{id}', [BookingController::class, 'bookingConfirm'])->name('bookingConfirm');
-        Route::get('delete/{id}', [BookingController::class, 'bookingDelete'])->name('bookingDelete');
+        Route::get('cancel/{id}', [BookingController::class, 'bookingCancel'])->name('bookingCancel');
     });
 
     // For Setting

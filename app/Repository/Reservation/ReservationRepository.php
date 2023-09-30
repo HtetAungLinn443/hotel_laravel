@@ -94,9 +94,10 @@ class ReservationRepository implements ReservationRepositoryInterface
             'check_out_date',
             'status'
         )->whereNull('deleted_at')
-            ->orderBy('status', 'desc')
-            ->orderBy('created_at')
+            ->orderBy('status', 'asc')
+            ->orderBy('created_at','desc')
             ->paginate(Constant::PAGE_LIMIT);
+            // dd($results->toArray());
         return $results;
     }
 
@@ -126,6 +127,13 @@ class ReservationRepository implements ReservationRepositoryInterface
         } else {
             return false;
         }
-        
+
+    }
+
+    public function bookingCancel(int $id)
+    {
+        $paramObj   = Booking::find($id);
+        $tempObj    = Utility::addDelete($paramObj);
+        $tempObj->save();
     }
 }
