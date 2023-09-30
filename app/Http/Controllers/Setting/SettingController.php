@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Repository\SiteSetting\SiteSettingRepositoryInterface;
+use App\ReturnMessage;
+use PDO;
 
 class SettingController extends Controller
 {
@@ -37,7 +39,12 @@ class SettingController extends Controller
     public function update(Request $request){
         try {
             $settingUpdate  = $this->siteSettingRepository->update((array) $request->all());
-            Utility::saveDebugLog("Room Update::");
+            Utility::saveDebugLog("Setting Update::");
+            if($settingUpdate['statusCode'] == ReturnMessage::OK){
+                return back()->with(['success_msg' => 'Hotel Setting Create Successfully...']);
+            }else{
+                return back()->with(['error_msg' => 'Hotel Setting Create Fail!']);
+            }
         } catch (Exception $e) {
             Utility::saveErrorLog($e->getMessage());
             abort(500);
