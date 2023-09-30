@@ -145,9 +145,9 @@
                                             <div class="preview-container">
                                                 <a class="thumb-update btn btn-info text-white" style="">Update
                                                     Image</a>
-                                                <img src="{{ old('size_unit', asset('assets/images/' . (isset($setting) ? $setting->logo_path : ''))) }}"
+                                                <img src="{{ asset('assets/images/' . (isset($setting) ? $setting->logo_path : '')) }}"
                                                     class="preview-img"
-                                                    alt="{{ old('size_unit', asset('assets/images/' . (isset($setting) ? $setting->logo_path : ''))) }}" />
+                                                    alt="{{ asset('assets/images/' . (isset($setting) ? $setting->logo_path : '')) }}" />
                                             </div>
                                         </div>
                                         <input type="file" name="file" id="thumb_file" style="display: none;"
@@ -187,4 +187,114 @@
             });
         })
     </script>
+    @if (session()->has('error_msg'))
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ session()->get('error_msg') }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @endif
+    @error('name')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('email')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('address')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('check_in_time')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('check_out_time')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('phone')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('size_unit')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('occupancy')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('price_unit')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
+    @error('file')
+        <script>
+            new PNotify({
+                title: 'Error!',
+                text: "{{ $message }}",
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        </script>
+    @enderror
 @endsection

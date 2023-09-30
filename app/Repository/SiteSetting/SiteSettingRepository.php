@@ -4,6 +4,7 @@ namespace App\Repository\SiteSetting;
 
 use Exception;
 use App\Utility;
+use Carbon\Carbon;
 use App\ReturnMessage;
 use App\Models\HotelSetting;
 use Intervention\Image\Facades\Image;
@@ -19,8 +20,10 @@ class SiteSettingRepository implements SiteSettingRepositoryInterface
             $paramObj->name             = $data['name'];
             $paramObj->email            = $data['email'];
             $paramObj->address          = $data['address'];
-            $paramObj->check_in_time    = $data['check_in_time'];
-            $paramObj->check_out_time   = $data['check_out_time'];
+            $checkInTime                = Carbon::createFromFormat('h:i A', $data['check_in_time'])->format('H:i:s');
+            $checkOutTime               = Carbon::createFromFormat('h:i A', $data['check_out_time'])->format('H:i:s');
+            $paramObj->check_in_time    = $checkInTime;
+            $paramObj->check_out_time   = $checkOutTime;
             $paramObj->phone            = $data['phone'];
             $paramObj->size_unit        = $data['size_unit'];
             $paramObj->occupancy        = $data['occupancy'];
@@ -33,6 +36,7 @@ class SiteSettingRepository implements SiteSettingRepositoryInterface
             $tmpObj->save();
             if (array_key_exists('file', $data)) {
                 $destination = public_path('assets/images');
+                // unlink($destination . '/' . $oldImageName);
                 if (!file_exists($destination)) {
                     mkdir($destination, 0777, true);
                 }
@@ -44,6 +48,7 @@ class SiteSettingRepository implements SiteSettingRepositoryInterface
             $returnObj['statusCode'] = ReturnMessage::OK;
             return $returnObj;
         } catch(Exception $e) {
+            dd($e);
             $returnObj['statusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
             return $returnObj;
         }

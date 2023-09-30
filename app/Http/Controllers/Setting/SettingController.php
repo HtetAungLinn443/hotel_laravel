@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Setting;
 
+use PDO;
 use Exception;
 use App\Utility;
+use App\ReturnMessage;
 use App\Models\HotelSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Setting\SettingUpdateRequest;
 use App\Repository\SiteSetting\SiteSettingRepositoryInterface;
-use App\ReturnMessage;
-use PDO;
 
 class SettingController extends Controller
 {
@@ -26,17 +27,8 @@ class SettingController extends Controller
         $setting =  HotelSetting::find(1);
         return view('admin.setting.form', compact('setting'));
     }
-    // public function eidt($id){
-    //     try {
-    //         $settingEdit  = $this->siteSettingRepository->edit((int) $id);
-    //         Utility::saveDebugLog("Room Edit::");
-    //         return view('admin.setting.form', compact('setting'));
-    //     } catch (Exception $e) {
-    //         Utility::saveErrorLog($e->getMessage());
-    //         abort(500);
-    //     }
-    // }
-    public function update(Request $request){
+
+    public function update(SettingUpdateRequest $request){
         try {
             $settingUpdate  = $this->siteSettingRepository->update((array) $request->all());
             Utility::saveDebugLog("Setting Update::");
