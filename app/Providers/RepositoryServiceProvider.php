@@ -13,10 +13,12 @@ use App\Repository\Room\RoomRepositoryInterface;
 use App\Repository\View\ViewRepositoryInterface;
 use App\Repository\Reservation\ReservationRepository;
 use App\Repository\RoomGallery\RoomGalleryRepository;
+use App\Repository\SiteSetting\SiteSettingRepository;
 use App\Repository\Amenity\AmenityRepositoryInterface;
 use App\Repository\Feature\FeatureRepositoryInterface;
 use App\Repository\Reservation\ReservationRepositoryInterface;
 use App\Repository\RoomGallery\RoomGalleryRepositoryInterface;
+use App\Repository\SiteSetting\SiteSettingRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -34,6 +36,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(RoomRepositoryInterface::class, RoomRepository::class);
         $this->app->bind(RoomGalleryRepositoryInterface::class, RoomGalleryRepository::class);
         $this->app->bind(ReservationRepositoryInterface::class, ReservationRepository::class);
+        $this->app->bind(SiteSettingRepositoryInterface::class,SiteSettingRepository::class);
     }
 
     /**

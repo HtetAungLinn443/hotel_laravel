@@ -15,7 +15,7 @@
                         <button onclick="history.back()" class="btn btn-dark">Back</button>
                         <div class="x_content">
                             <br />
-                            <form action="" method="POST" id="createForm" enctype="multipart/form-data">
+                            <form action="{{route('settingUpdate')}}" method="POST" id="createForm" enctype="multipart/form-data">
 
                                 <div class="field item form-group">
                                     <label class="col-form-label col-md-3 col-sm-3  label-align" for="name">Hotel
@@ -23,7 +23,7 @@
 
                                     <div class="col-md-6 col-sm-6">
                                         <input type="text" class="form-control" name="name" id="name"
-                                            value="" placeholder="ex. Softguide Hotel" autofocus />
+                                            value="{{ old('name', isset($setting) ? $setting->name : '') }}" placeholder="ex. Softguide Hotel" autofocus />
                                     </div>
                                     <label class="col-form-label col-md-3 col-sm-3 label-error hide" id=""></label>
                                 </div>
@@ -34,7 +34,7 @@
 
                                     <div class="col-md-6 col-sm-6">
                                         <input type="email" class="form-control" name="email" id="email"
-                                            value="" placeholder="ex. softguide@gmail.com" />
+                                            value="{{ old('email', isset($setting) ? $setting->email : '') }}" placeholder="ex. softguide@gmail.com" />
                                     </div>
                                     <label class="col-form-label col-md-3 col-sm-3 label-error hide" id=""></label>
                                 </div>
@@ -44,7 +44,7 @@
 
                                     <div class="col-md-6 col-sm-6">
                                         <textarea name="address" class="form-control" id="address" cols="30" rows="4"
-                                            placeholder="Enter Hotel Address"></textarea>
+                                            placeholder="Enter Hotel Address">{{ old('email', isset($setting) ? $setting->address : '') }}</textarea>
                                     </div>
                                     <label class="col-form-label col-md-3 col-sm-3 label-error hide" id=""></label>
                                 </div>
@@ -54,7 +54,7 @@
                                     </label>
                                     <div class="col-md-6 col-sm-6">
                                         <div class='input-group date' id='check_in'>
-                                            <input type='text' class="form-control" name="check_in" value=""
+                                            <input type='text' class="form-control" name="check_in" value="{{ old('check_in',isset($setting) ? $setting->check_in : '') }}"
                                                 placeholder="Choose Check In " />
                                             <span class="input-group-addon">
                                                 <span class="">
@@ -144,8 +144,8 @@
                                     <div class="col-md-6 col-sm-6 d-flex justify-content-center">
                                         <div
                                             class="preview-wrapper rounded  d-flex justify-content-center align-items-center">
-                                            <label class="thumb-upload btn btn-info" style="">Upload
-                                                Image</label>
+                                            {{-- <label class="thumb-upload btn btn-info" style="">Upload
+                                                Image</label> --}}
                                             <div class="preview-container">
                                                 <a class="thumb-update btn btn-info text-white" style="">Update
                                                     Image</a>

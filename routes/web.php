@@ -87,6 +87,7 @@ Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], functi
     // For Setting
     Route::prefix('setting')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('settingForm');
+        Route::post('/', [SettingController::class, 'update'])->name('settingUpdate');
     });
 });
 
