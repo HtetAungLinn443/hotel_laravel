@@ -58,6 +58,7 @@ class Utility
         $log = $logMessage . "\n" . $query;
         Log::debug($log);
     }
+
     public static function saveErrorLog($logMessage)
     {
         $log = $logMessage;

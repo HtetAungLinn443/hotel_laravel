@@ -9,9 +9,9 @@ class Constant
     public const AMENITY_OTHER     = 2;
     public const THUMB_WIDTH       = 379;
     public const THUMB_HEIGHT      = 360;
-    public const UPLOAD_WIDTH      = 700;
-    public const UPLOAD_HEIGHT     = 500;
+    public const UPLOAD_WIDTH      = 730;
+    public const UPLOAD_HEIGHT     = 400;
     public const WATERMARK_PATH    = 'assets/images/wartermark.png';
     public const BOOKING_AVAILABLE = 1;
-    public const PAGE_LIMIT = 3;
+    public const PAGE_LIMIT = 10;
 }

@@ -19,6 +19,7 @@ Route::prefix('admin-backend')->group(function () {
 });
 
 Route::group(['prefix' => 'admin-backend', 'middleware' => 'admin_auth'], function () {
+    // For Dashboard
     Route::get('index', [HomeController::class, 'dashboard'])->name('dashboard');
     // For View
     Route::prefix('view')->group(function () {

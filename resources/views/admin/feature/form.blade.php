@@ -7,14 +7,19 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Hotel Room View</h3>
+                    <h3>Hotel Room Special Feature</h3>
                 </div>
             </div>
             <div class="clearfix"></div>
             <div class="row">
                 <div class="col-md-12 col-sm-12 ">
                     <div class="x_panel">
-                        <h3>View Create</h3>
+
+                        @if (isset($feature_data))
+                            <h3>Special Feature Update</h3>
+                        @else
+                            <h3>Special Feature Create</h3>
+                        @endif
                         <button onclick="history.back()" class="btn btn-dark">Back</button>
                         <div class="x_content">
                             <br />

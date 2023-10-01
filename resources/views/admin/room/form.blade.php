@@ -14,7 +14,12 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 ">
                     <div class="x_panel">
-                        <h3>Room Create</h3>
+
+                        @if (isset($room_data))
+                            <h3>Room Update</h3>
+                        @else
+                            <h3>Room Create</h3>
+                        @endif
                         <button onclick="history.back()" class="btn btn-dark">Back</button>
                         <div class="x_content">
                             <br />
@@ -55,7 +60,7 @@
                                 <label class="col-form-label col-md-3 col-sm-3  label-align" for="room_name">Room
                                     Name<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control" name="name" id="room_name" placeholder="ex. Dulex Room "
+                                    <input class="form-control" name="name" id="room_name" placeholder="ex. Deluxe Room"
                                         autofocus value="{{ old('name', isset($room_data) ? $room_data->name : '') }}" />
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error " id="room_name_error"></label>
@@ -66,7 +71,7 @@
                                     for="room_occupation">Occupation<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <input type="number" class="form-control" name="room_occupation" id="room_occupation"
-                                        placeholder="ex. 1" min="1" max="12"
+                                        placeholder="ex. 1" min="1"
                                         value="{{ old('room_occupation', isset($room_data) ? $room_data->occupancy : '') }}" />
                                 </div>
                                 <label class="col-form-label col-md-3 col-sm-3 label-error hide"

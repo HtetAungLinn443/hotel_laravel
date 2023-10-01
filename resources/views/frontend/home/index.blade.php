@@ -1,17 +1,16 @@
 @extends('frontend.layouts.master')
 
-@section('title', (getSiteSetting() !== null ? getSiteSetting()->name :'').'::Myanmar Best Hotel Booking')
+@section('title', (getSiteSetting() !== null ? getSiteSetting()->name : '') . '::Myanmar Best Hotel Booking')
 
 @section('title_1')
-<h2>More than a hotel... an experience</h2>
-<h1 class="mb-3">Hotel for the whole family, all year round.</h1>
+    <h2>More than a hotel... an experience</h2>
+    <h1 class="mb-3">Hotel for the whole family, all year round.</h1>
 @endsection
 @section('title_2')
-<h2>Harbor Lights Hotel &amp; Resort</h2>
-<h1 class="mb-3">It feels like staying in your own home.</h1>
+    <h2>Harbor Lights Hotel &amp; Resort</h2>
+    <h1 class="mb-3">It feels like staying in your own home.</h1>
 @endsection
 @section('content')
-
     <section class="ftco-booking ftco-section ftco-no-pt ftco-no-pb">
         <div class="container">
             <div class="row no-gutters">

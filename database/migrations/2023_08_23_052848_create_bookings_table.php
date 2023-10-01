@@ -21,8 +21,6 @@ return new class () extends Migration {
             $table->string('check_in_date', 100);
             $table->string('check_out_date', 100);
             $table->tinyInteger('status')->default(0);
-            $table->integer('created_by');
-            $table->integer('updated_by');
             $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();

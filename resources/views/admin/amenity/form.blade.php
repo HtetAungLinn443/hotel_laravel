@@ -14,7 +14,11 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 ">
                     <div class="x_panel">
-                        <h3>Amenity Create</h3>
+                        @if (isset($amenity_data))
+                            <h3>Amenity Update</h3>
+                        @else
+                            <h3>Amenity Create</h3>
+                        @endif
                         <button onclick="history.back()" class="btn btn-dark">Back</button>
                         <div class="x_content">
                             <br />
