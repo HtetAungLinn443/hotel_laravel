@@ -54,7 +54,7 @@
                                                 </a>
                                                 <a href="{{ route('amenityDelete', $amenity->id) }}"
                                                     class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Are you sure you went delete room amenity')"
+                                                    onclick="return confirm('Are you sure you want to delete room amenity?')"
                                                     title="{{ route('amenityDelete', $amenity->id) }}">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </a>

@@ -10,7 +10,7 @@
     <link rel="icon" href="images/favicon.ico" type="image/ico" />
 
     <title>Hotel Booking::@yield('title')</title>
-
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
     <!-- Bootstrap -->
     <link href="{{ asset('assets/backend/css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
