@@ -97,6 +97,7 @@ Route::get('/details/{id}', [FrontendController::class, 'details'])->name('userR
 Route::get('/rooms', [FrontendController::class, 'getRooms'])->name('userRooms');
 Route::get('/about', [FrontendController::class, 'about'])->name('userAbout');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('userContact');
+Route::get('/search', [FrontendController::class, 'search'])->name('userRoomSearch');
 Route::prefix('room')->group(function () {
     Route::get('/reserve/{id}', [FrontendController::class, 'roomReserve'])->name('roomReserve');
     Route::post('/reserve', [FrontendController::class, 'roomBooking'])->name('roomBooking');

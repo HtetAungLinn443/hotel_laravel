@@ -95,7 +95,7 @@ class ReservationRepository implements ReservationRepositoryInterface
             'status'
         )->whereNull('deleted_at')
             ->orderBy('status', 'asc')
-            ->orderBy('created_at','desc')
+            ->orderBy('created_at', 'desc')
             ->paginate(Constant::PAGE_LIMIT);
         return $results;
     }
@@ -107,26 +107,25 @@ class ReservationRepository implements ReservationRepositoryInterface
         $check_in_date      = $booking->check_in_date;
         $check_out_date     = $booking->check_out_date;
 
-        $check_in_cnt = Booking::where('check_in_date', '<', $check_in_date)
-            ->where('check_out_date', '>', $check_in_date)
+        $check_in_cnt = Booking::where('check_in_date', '<=', $check_in_date)
+            ->where('check_out_date', '>=', $check_in_date)
             ->where('status', Constant::BOOKING_AVAILABLE)
             ->where('room_id', $room_id)
             ->whereNull('deleted_at')
             ->count();
-        $check_out_cnt = Booking::where('check_in_date', '<', $check_out_date)
-            ->where('check_out_date', '>', $check_out_date)
+        $check_out_cnt = Booking::where('check_in_date', '<=', $check_out_date)
+            ->where('check_out_date', '>=', $check_out_date)
             ->where('status', Constant::BOOKING_AVAILABLE)
             ->where('room_id', $room_id)
             ->whereNull('deleted_at')
             ->count();
-        if ($check_in_cnt === 0 && $check_out_cnt === 0 ) {
+        if ($check_in_cnt === 0 && $check_out_cnt === 0) {
             $booking->status = Constant::BOOKING_AVAILABLE;
             $booking->save();
             return true;
         } else {
             return false;
         }
-
     }
 
     public function bookingCancel(int $id)

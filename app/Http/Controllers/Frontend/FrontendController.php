@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Frontend;
 
 use Exception;
 use App\Utility;
+use App\ReturnMessage;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Room\RoomSearchRequest;
 use App\Repository\Room\RoomRepositoryInterface;
 use App\Http\Requests\Frontend\ReserveCreateRequest;
 use App\Repository\Reservation\ReservationRepositoryInterface;
-use App\ReturnMessage;
 
 class FrontendController extends Controller
 {
@@ -92,6 +93,22 @@ class FrontendController extends Controller
             }
         } catch (Exception $e) {
             Utility::saveErrorLog($e->getMessage());
+            abort(500);
+        }
+    }
+    public function search(RoomSearchRequest $request)
+    {
+        try {
+            $rooms      = $this->repository->search((array) $request->all());
+            $check_in   = $request->check_in;
+            $check_out  = $request->check_out;
+            $logs             = "Rooms Search Page Screen ::";
+            Utility::saveDebugLog($logs);
+            return view('frontend.home.index', compact('rooms', 'check_in', 'check_out'));
+        } catch (\Exception $e) {
+            $logs       = "Rooms Search Page Error Screen ::";
+            $logs       .= $e->getMessage();
+            Utility::saveErrorLog($logs);
             abort(500);
         }
     }

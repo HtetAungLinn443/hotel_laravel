@@ -153,7 +153,6 @@
                 $('.total_price').text(total_price);
                 $('.htotal_price').val(total_price);
             }
-
         })
     </script>
 @endsection

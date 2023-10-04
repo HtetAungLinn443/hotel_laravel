@@ -7,6 +7,7 @@ use App\Utility;
 use App\Constant;
 use App\Models\Room;
 use App\ReturnMessage;
+use App\Models\Booking;
 use App\Models\RoomAmenity;
 use App\Models\RoomSpecialFeature;
 use Illuminate\Support\Facades\DB;
@@ -239,4 +240,37 @@ class RoomRepository implements RoomRepositoryInterface
         }
     }
 
+    public function search(array $data)
+    {
+        $remove_ids = [];
+        $sql1 = Booking::select("room_id")
+            ->where('check_in_date', '<=', $data['check_in'])
+            ->where('check_out_date', '>=', $data['check_in'])
+            ->where('status', '=', Constant::BOOKING_AVAILABLE)
+            ->whereNull('deleted_at')
+            ->get();
+        foreach ($sql1 as $sql) {
+            array_push($remove_ids, $sql->room_id);
+        }
+        $sql2 = Booking::select("room_id")
+            ->where('check_in_date', '>=', $data['check_in'])
+            ->where('check_in_date', '<=', $data['check_out'])
+            ->where('status', '=', Constant::BOOKING_AVAILABLE)
+            ->whereNull('deleted_at')
+            ->get();
+        foreach ($sql2 as $sql) {
+            array_push($remove_ids, $sql->room_id);
+        }
+        $rooms = Room::select(
+            "id",
+            "name",
+            "price_per_day",
+            "thumbnail_img"
+        )
+            ->whereNotIn('id', $remove_ids)
+            ->whereNull('deleted_at')
+            ->orderByDesc('id')
+            ->get();
+        return $rooms;
+    }
 }

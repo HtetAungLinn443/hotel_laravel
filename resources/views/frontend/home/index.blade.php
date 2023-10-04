@@ -15,13 +15,17 @@
         <div class="container">
             <div class="row no-gutters">
                 <div class="col-lg-12">
-                    <form action="#" class="booking-form aside-stretch">
+                    <form action="{{ route('userRoomSearch') }}" class="booking-form aside-stretch" method="GET">
                         <div class="row">
                             <div class="col-md d-flex py-md-4">
                                 <div class="form-group align-self-stretch d-flex align-items-end">
                                     <div class="wrap align-self-stretch py-3 px-4">
                                         <label for="#">Check-in Date</label>
-                                        <input type="text" class="form-control checkin_date" placeholder="Check-in date">
+                                        <input type="text" class="form-control" id="checkin_date"
+                                            placeholder="Check-in date" name="check_in" value="{{ isset($check_in) ? $check_in : old('check_in') }}">
+                                        @error('check_in')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -29,8 +33,11 @@
                                 <div class="form-group align-self-stretch d-flex align-items-end">
                                     <div class="wrap align-self-stretch py-3 px-4">
                                         <label for="#">Check-out Date</label>
-                                        <input type="text" class="form-control checkout_date"
-                                            placeholder="Check-out date">
+                                        <input type="text" class="form-control" id="checkout_date"
+                                            placeholder="Check-out date" name="check_out" value="{{ isset($check_out) ? $check_out : old('check_out') }}">
+                                        @error('check_out')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -42,12 +49,10 @@
                                             <div class="select-wrap">
                                                 <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                                 <select name="" id="" class="form-control">
-                                                    <option value="">Suite</option>
-                                                    <option value="">Family Room</option>
-                                                    <option value="">Deluxe Room</option>
-                                                    <option value="">Classic Room</option>
-                                                    <option value="">Superior Room</option>
-                                                    <option value="">Luxury Room</option>
+                                                    <option value="">Room Name</option>
+                                                    @foreach($rooms as $room)
+                                                    <option value="{{ $room->id }}">{{ $room->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -56,9 +61,8 @@
                             </div>
                             <div class="col-md d-flex">
                                 <div class="form-group d-flex align-self-stretch">
-                                    <a href="#"
-                                        class="btn btn-primary py-5 py-md-3 px-4 align-self-stretch d-block"><span>Check
-                                            Availability <small>Best Price Guaranteed!</small></span></a>
+                                    <button type="submit"
+                                        class="btn btn-primary py-5 py-md-3 px-4 align-self-stretch d-block">Search</button>
                                 </div>
                             </div>
                         </div>
@@ -203,4 +207,49 @@
         </div>
     </section>
     @include('frontend.components.instagram')
+
+@endsection
+
+@section('script')
+    @if (session()->has('check_in'))
+    <script>
+        new PNotify({
+        title: 'Error!',
+        text: "{{ session()->get('check_in') }}",
+        type: 'success',
+        styling: 'bootstrap3'
+        })
+    </script>
+    @endif
+
+    @if (session()->has('check_out'))
+    <script>
+        new PNotify({
+            title: 'Error!',
+            text: "{{ session()->get('check_out') }}",
+            type: 'error',
+            styling: 'bootstrap3'
+        })
+    </script>
+    @endif
+    <script>
+       $(document).ready(function() {
+            $("#checkin_date").datepicker({
+                minDate: 0,
+                dateFormat: "yy-mm-dd", 
+                onSelect: function(selectedDate) {
+                    var minDate = new Date(selectedDate);
+                    minDate.setDate(minDate.getDate() + 1);
+                    $("#checkout_date").datepicker("option", "minDate", minDate);
+                    $("#checkout_date").prop("distable", false);
+                }
+            });
+
+            $("#checkout_date").datepicker({
+                minDate: 0,
+                dateFormat: "yy-mm-dd"
+            });
+        });
+
+    </script>
 @endsection
