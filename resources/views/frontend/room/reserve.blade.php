@@ -136,6 +136,15 @@
                     calculateRoomPrice(false)
                 }
             })
+            $("#checkOut").change(function(){
+                if (checkbox.is(':checked')) {
+                    $("#extra_bed_price").show();
+                    calculateRoomPrice(true)
+                } else {
+                    $("#extra_bed_price").hide();
+                    calculateRoomPrice(false)
+                }
+            })
 
             function calculateRoomPrice(is_extra_bed) {
                 var room_price = '{{ $room->price_per_day }}';
@@ -143,15 +152,27 @@
                 var checkin_val = $("#checkIn").val();
                 var checkout_val = $("#checkOut").val();
                 if (checkin_val != '' && checkout_val != '') {
+                    var checkin_date = new Date(checkin_val);
+                    var checkout_date = new Date(checkout_val);
 
+                    var time_difference = checkout_date - checkin_date;
+                    var days_difference = Math.ceil(time_difference / (1000 * 3600 * 24));
+
+                    var total_price = room_price * days_difference;
                 }
                 if (is_extra_bed) {
-                    var total_price = parseInt(room_price) + parseInt(extra_bed_price);
-                } else {
-                    var total_price = parseInt(room_price)
+                    total_price += extra_bed_price * days_difference;
                 }
-                $('.total_price').text(total_price);
-                $('.htotal_price').val(total_price);
+
+                $('.total_price').text(total_price.toFixed(2)); // Display total price with 2 decimal places
+                $('.htotal_price').val(total_price.toFixed(2));
+                // if (is_extra_bed) {
+                //     var total_price = parseInt(room_price) + parseInt(extra_bed_price);
+                // } else {
+                //     var total_price = parseInt(room_price)
+                // }
+                // $('.total_price').text(total_price);
+                // $('.htotal_price').val(total_price);
             }
         })
     </script>
